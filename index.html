@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om Pradip Patil - Portfolio</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, #f4f4f4, #e0e0e0);
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        header {
+            background: linear-gradient(90deg, #0078d7, #00b5d7);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            text-decoration: none;
+            color: #0078d7;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        nav a:hover {
+            color: #00b5d7;
+            transform: scale(1.1);
+        }
+        main {
+            padding: 2rem;
+            max-width: 900px;
+            margin: auto;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #0078d7;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+        .linkedin-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #0078d7;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .linkedin-link:hover {
+            background-color: #005bb5;
+            transform: scale(1.05);
+        }
+        footer {
+            background-color: #0078d7;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            nav {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            main {
+                padding: 1rem;
+            }
+            section {
+                padding: 1.5rem;
+            }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Om Pradip Patil</h1>
+        <p>Motivated and tech-savvy student seeking opportunities in IT and programming</p>
+    </header>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#languages">Languages</a>
+        <a href="#hobbies">Hobbies</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Motivated and tech-savvy student with a strong interest in IT, networking, and programming. Seeking an internship in the IT sector to apply my knowledge and enhance my technical skills in a professional environment.</p>
+        </section>
+        <section id="education">
+            <h2>Education</h2>
+            <ul>
+                <li><strong>2013-2023:</strong> Don Bosco School - SSC</li>
+                <li><strong>2023-2026:</strong> St. John College of Engineering and Management (SJCEM) - Diploma in Computer Science and Engineering (CSE)</li>
+            </ul>
+        </section>
+        <section id="skills">
+            <h2>Skills</h2>
+            <ul>
+                <li><strong>Programming Languages:</strong> C, C++, Java</li>
+                <li>IT Support & Troubleshooting</li>
+                <li><strong>Operating Systems:</strong> Windows, Linux</li>
+                <li>Problem-Solving & Debugging</li>
+                <li><strong>Database Management:</strong> MySQL, SQL</li>
+            </ul>
+        </section>
+        <section id="languages">
+            <h2>Languages</h2>
+            <ul>
+                <li><strong>English:</strong> Fluent</li>
+                <li><strong>Marathi:</strong> Fluent</li>
+                <li><strong>Hindi:</strong> Fluent</li>
+            </ul>
+        </section>
+        <section id="hobbies">
+            <h2>Hobbies & Interests</h2>
+            <ul>
+                <li>Programming & Problem-Solving</li>
+                <li>Gaming & Esports (PUBG PC, BGMI)</li>
+                <li>Exploring Computer Hardware & Software</li>
+                <li>Cybersecurity Research</li>
+            </ul>
+        </section>
+        <section id="cv">
+            <h2>My CV</h2>
+            <a href="#" class="linkedin-link" id="cvButton">View My CV</a>
+        </section>
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p><strong>Location:</strong> Ostwal, Boisar, Palghar, Maharashtra</p>
+            <p><strong>Phone:</strong> 9028915605</p>
+            <p><strong>Email:</strong> <a href="mailto:omspradippatil@gmail.com">omspradippatil@gmail.com</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://in.linkedin.com/in/om-pradip-patil" target="_blank" class="linkedin-link">Visit My LinkedIn Profile</a></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Om Pradip Patil. All rights reserved.</p>
+    </footer>
+    <div class="modal" id="cvModal">
+        <span class="modal-close" id="closeModal">&times;</span>
+        <img src="MY Resume.jpg" alt="Om Pradip Patil's CV">
+    </div>
+    <script>
+        const cvButton = document.getElementById('cvButton');
+        const cvModal = document.getElementById('cvModal');
+        const closeModal = document.getElementById('closeModal');
+
+        cvButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            cvModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            cvModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === cvModal) {
+                cvModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

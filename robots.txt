@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Host: omspradippatil.netlify.app
 
-Sitemap: https://ompradippatil.netlify.app/sitemap.xml
+Sitemap: https://omspradippatil.netlify.app/sitemap.xml

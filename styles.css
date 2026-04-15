@@ -130,8 +130,8 @@
             font-size: .92rem;
             color: var(--muted);
             transition: color .2s ease, background .2s ease;
-            opacity: 0;
-            transform: translateY(-6px);
+            opacity: 1;
+            transform: translateY(0);
             animation: navItemIn .35s ease forwards;
         }
 
@@ -142,6 +142,10 @@
         .nav-links a:nth-child(5) { animation-delay: .24s; }
 
         @keyframes navItemIn {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -650,6 +654,11 @@
                 opacity: 1 !important;
                 transform: none !important;
                 transition: none !important;
+            }
+
+            .nav-links a {
+                opacity: 1 !important;
+                transform: none !important;
             }
         }
 

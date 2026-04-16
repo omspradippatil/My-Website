@@ -1,0 +1,32 @@
+# This is an example configuration file
+# To learn more, see the full config.yaml reference: https://docs.continue.dev/reference
+
+name: Example Config
+version: 1.0.0
+schema: v1
+
+# Define which models can be used
+# https://docs.continue.dev/customization/models
+models:
+  - name: LM Studio Gemma 4 E4B
+    provider: openai
+    apiBase: http://127.0.0.1:1234/v1
+    apiKey: lm-studio
+    model: google/gemma-4-e4b
+    roles:
+      - chat
+      - edit
+      - apply
+      - summarize
+  - name: LM Studio Nomic Embed Text v1.5
+    provider: openai
+    apiBase: http://127.0.0.1:1234/v1
+    apiKey: lm-studio
+    model: text-embedding-nomic-embed-text-v1.5
+    roles:
+      - embed
+
+# MCP Servers that Continue can access
+# https://docs.continue.dev/customization/mcp-tools
+mcpServers:
+  - uses: anthropic/memory-mcp

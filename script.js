@@ -3,148 +3,162 @@
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const siteNav = document.querySelector(".site-nav");
-    const navToggle = document.getElementById("nav-toggle");
-    const navLinks = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
-
+    const siteNav    = document.querySelector(".site-nav");
+    const navToggle  = document.getElementById("nav-toggle");
+    const navLinks   = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
     const progressBar = document.getElementById("progress-bar");
-    const topBtn = document.getElementById("top-btn");
-    const revealEls = Array.from(document.querySelectorAll(".reveal"));
+    const topBtn     = document.getElementById("top-btn");
+    const revealEls  = Array.from(document.querySelectorAll(".reveal"));
 
-    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-
+    const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
     let scrollTicking = false;
 
+    /* ─────────────────────────────────────────────────
+       Scroll UI (progress bar, back-to-top, nav shadow)
+    ───────────────────────────────────────────────── */
     function updateScrollUI() {
         scrollTicking = false;
-
         const scrolled = window.scrollY || window.pageYOffset;
-        const total = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-        const progress = clamp((scrolled / total) * 100, 0, 100);
+        const total    = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+        const pct      = clamp((scrolled / total) * 100, 0, 100);
 
-        if (progressBar) {
-            progressBar.style.width = `${progress}%`;
-        }
-
-        if (topBtn) {
-            topBtn.classList.toggle("show", scrolled > 280);
-        }
-
-        if (siteNav) {
-            siteNav.classList.toggle("is-scrolled", scrolled > 6);
-        }
+        if (progressBar) progressBar.style.width = `${pct}%`;
+        if (topBtn)       topBtn.classList.toggle("show", scrolled > 280);
+        if (siteNav)      siteNav.classList.toggle("is-scrolled", scrolled > 6);
     }
 
     function onScroll() {
-        if (scrollTicking) {
-            return;
-        }
-
+        if (scrollTicking) return;
         scrollTicking = true;
         requestAnimationFrame(updateScrollUI);
     }
 
+    /* ─────────────────────────────────────────────────
+       Scroll-reveal (fade up, no blur)
+    ───────────────────────────────────────────────── */
     function setupScrollReveal() {
-        if (!revealEls.length) {
-            return;
-        }
+        if (!revealEls.length) return;
 
         if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-            revealEls.forEach((el) => el.classList.add("visible"));
+            revealEls.forEach(el => el.classList.add("visible"));
             return;
         }
 
-        const revealObserver = new IntersectionObserver(
-            (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
-                        observer.unobserve(entry.target);
-                    }
+        const observer = new IntersectionObserver(
+            (entries, io) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add("visible");
+                    io.unobserve(entry.target);
                 });
             },
-            {
-                threshold: 0.14,
-                rootMargin: "0px 0px -10% 0px"
-            }
+            { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
         );
 
-        revealEls.forEach((el) => revealObserver.observe(el));
+        revealEls.forEach(el => observer.observe(el));
     }
 
+    /* ─────────────────────────────────────────────────
+       Typing animation → then reveal tagline & buttons
+    ───────────────────────────────────────────────── */
+    function revealHeroContent(delay) {
+        const tagline     = document.querySelector(".tagline");
+        const heroActions = document.querySelector(".hero-actions");
+
+        if (tagline)     setTimeout(() => tagline.classList.add("hero-revealed"),     delay);
+        if (heroActions) setTimeout(() => heroActions.classList.add("hero-revealed"), delay + 160);
+    }
+
+    function setupIntroTyping() {
+        const headline   = document.querySelector(".typing-headline");
+        if (!(headline instanceof HTMLElement)) { revealHeroContent(0); return; }
+
+        const typingText = headline.querySelector(".typing-text");
+        if (!(typingText instanceof HTMLElement)) { revealHeroContent(0); return; }
+
+        const fullText = headline.dataset.typingText || typingText.textContent || "";
+        if (!fullText) { revealHeroContent(0); return; }
+
+        if (prefersReducedMotion) {
+            typingText.textContent = fullText;
+            headline.classList.add("typed");
+            revealHeroContent(0);
+            return;
+        }
+
+        typingText.textContent = "";
+        headline.classList.add("is-typing");
+
+        const chars = Array.from(fullText);
+        let i = 0;
+
+        const typeNext = () => {
+            typingText.textContent += chars[i];
+            i++;
+            if (i < chars.length) {
+                const delay = chars[i - 1] === " " ? 38 : 72;
+                setTimeout(typeNext, delay);
+                return;
+            }
+            headline.classList.remove("is-typing");
+            headline.classList.add("typed");
+            revealHeroContent(130);
+        };
+
+        // Start after the headline has faded in (~0.38s anim delay + 0.7s duration)
+        setTimeout(typeNext, 420);
+    }
+
+    /* ─────────────────────────────────────────────────
+       Pill pop-in
+    ───────────────────────────────────────────────── */
     function setupPillPopIn() {
         const groupIds = ["lang-pills", "fw-pills", "db-pills", "domain-pills"];
 
-        groupIds.forEach((id) => {
+        groupIds.forEach(id => {
             const group = document.getElementById(id);
-            if (!group) {
-                return;
-            }
-
+            if (!group) return;
             const pills = group.querySelectorAll(".pill");
-            if (!pills.length) {
-                return;
-            }
+            if (!pills.length) return;
 
-            if (prefersReducedMotion) {
-                pills.forEach((pill) => pill.classList.add("popped"));
-                return;
-            }
-
-            if (!("IntersectionObserver" in window)) {
-                pills.forEach((pill) => pill.classList.add("popped"));
+            if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+                pills.forEach(p => p.classList.add("popped"));
                 return;
             }
 
             const observer = new IntersectionObserver(
                 (entries, io) => {
-                    entries.forEach((entry) => {
-                        if (!entry.isIntersecting) {
-                            return;
-                        }
-
-                        pills.forEach((pill, index) => {
-                            window.setTimeout(() => {
-                                pill.classList.add("popped");
-                            }, index * 50);
-                        });
-
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        pills.forEach((pill, idx) =>
+                            setTimeout(() => pill.classList.add("popped"), idx * 55)
+                        );
                         io.unobserve(entry.target);
                     });
                 },
                 { threshold: 0.12 }
             );
-
             observer.observe(group);
         });
     }
 
+    /* ─────────────────────────────────────────────────
+       Smooth anchor scrolling
+    ───────────────────────────────────────────────── */
     function setupSmoothAnchors() {
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-            anchor.addEventListener("click", (event) => {
-                const href = anchor.getAttribute("href");
-
-                if (!href || href === "#") {
-                    event.preventDefault();
-                    return;
-                }
-
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", e => {
+                const href   = anchor.getAttribute("href");
+                if (!href || href === "#") { e.preventDefault(); return; }
                 const target = document.querySelector(href);
-                if (!target) {
-                    return;
-                }
+                if (!target) return;
+                e.preventDefault();
 
-                event.preventDefault();
+                const navH = siteNav ? siteNav.getBoundingClientRect().height + 24 : 0;
+                const y    = target.getBoundingClientRect().top + window.pageYOffset - navH;
+                window.scrollTo({ top: Math.max(0, y), behavior: prefersReducedMotion ? "auto" : "smooth" });
 
-                const navOffset = siteNav ? siteNav.getBoundingClientRect().height + 24 : 0;
-                const y = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
-
-                window.scrollTo({
-                    top: Math.max(0, y),
-                    behavior: prefersReducedMotion ? "auto" : "smooth"
-                });
-
-                if (siteNav && siteNav.classList.contains("open")) {
+                if (siteNav?.classList.contains("open")) {
                     siteNav.classList.remove("open");
                     navToggle?.setAttribute("aria-expanded", "false");
                 }
@@ -152,27 +166,20 @@
         });
     }
 
+    /* ─────────────────────────────────────────────────
+       Mobile nav
+    ───────────────────────────────────────────────── */
     function setupMobileNav() {
-        if (!siteNav || !navToggle) {
-            return;
-        }
+        if (!siteNav || !navToggle) return;
 
         navToggle.addEventListener("click", () => {
             const open = siteNav.classList.toggle("open");
             navToggle.setAttribute("aria-expanded", String(open));
         });
 
-        document.addEventListener("click", (event) => {
-            if (!siteNav.classList.contains("open")) {
-                return;
-            }
-
-            const target = event.target;
-            if (!(target instanceof Node)) {
-                return;
-            }
-
-            if (!siteNav.contains(target)) {
+        document.addEventListener("click", e => {
+            if (!siteNav.classList.contains("open")) return;
+            if (!(e.target instanceof Node) || !siteNav.contains(e.target)) {
                 siteNav.classList.remove("open");
                 navToggle.setAttribute("aria-expanded", "false");
             }
@@ -186,109 +193,217 @@
         });
     }
 
+    /* ─────────────────────────────────────────────────
+       Active nav link highlighting
+    ───────────────────────────────────────────────── */
     function setupActiveNavLink() {
-        if (!navLinks.length || !("IntersectionObserver" in window)) {
-            return;
-        }
+        if (!navLinks.length || !("IntersectionObserver" in window)) return;
 
         const sectionMap = navLinks
-            .map((link) => {
-                const href = link.getAttribute("href");
-                if (!href || href === "#") {
-                    return null;
-                }
-
+            .map(link => {
+                const href    = link.getAttribute("href");
+                if (!href || href === "#") return null;
                 const section = document.querySelector(href);
-                if (!section) {
-                    return null;
-                }
-
-                return { link, section };
+                return section ? { link, section } : null;
             })
             .filter(Boolean);
 
-        if (!sectionMap.length) {
-            return;
-        }
+        if (!sectionMap.length) return;
 
-        const activate = (sectionId) => {
-            sectionMap.forEach(({ link, section }) => {
-                link.classList.toggle("active", section.id === sectionId);
-            });
-        };
+        const activate = id =>
+            sectionMap.forEach(({ link, section }) =>
+                link.classList.toggle("active", section.id === id)
+            );
 
         const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        activate(entry.target.id);
-                    }
-                });
-            },
-            {
-                rootMargin: "-20% 0px -60% 0px",
-                threshold: 0.1
-            }
+            entries => entries.forEach(e => e.isIntersecting && activate(e.target.id)),
+            { rootMargin: "-20% 0px -60% 0px", threshold: 0.1 }
         );
 
         sectionMap.forEach(({ section }) => observer.observe(section));
     }
 
+    /* ─────────────────────────────────────────────────
+       Global stagger animations
+    ───────────────────────────────────────────────── */
     function setupGlobalStaggerAnimations() {
-        const targets = Array.from(
-            document.querySelectorAll(
-                ".hero-actions .btn, .hero-card li, .info-card, .contact-item, .list li, .pdf-frame, footer, .socials a"
-            )
-        );
+        const targets = Array.from(document.querySelectorAll(
+            ".hero-card li, .info-card, .contact-item, .platform-link, .list li, .pdf-frame, footer, .socials a"
+        ));
+        if (!targets.length) return;
 
-        if (!targets.length) {
-            return;
-        }
-
-        targets.forEach((element, index) => {
-            element.classList.add("animate-on-scroll");
-            element.style.setProperty("--stagger", String(index % 10));
+        targets.forEach((el, i) => {
+            el.classList.add("animate-on-scroll");
+            el.style.setProperty("--stagger", String(i % 10));
         });
 
         if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-            targets.forEach((element) => element.classList.add("animated-in"));
+            targets.forEach(el => el.classList.add("animated-in"));
             return;
         }
 
         const observer = new IntersectionObserver(
             (entries, io) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
                     entry.target.classList.add("animated-in");
                     io.unobserve(entry.target);
                 });
             },
-            {
-                threshold: 0.12,
-                rootMargin: "0px 0px -8% 0px"
-            }
+            { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
         );
 
-        targets.forEach((element) => observer.observe(element));
+        targets.forEach(el => observer.observe(el));
     }
 
+    /* ─────────────────────────────────────────────────
+       Back-to-top button
+    ───────────────────────────────────────────────── */
     function setupTopButton() {
-        if (!topBtn) {
-            return;
-        }
+        if (!topBtn) return;
+        topBtn.addEventListener("click", () =>
+            window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" })
+        );
+    }
 
-        topBtn.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: prefersReducedMotion ? "auto" : "smooth"
+    /* ─────────────────────────────────────────────────
+       Particle canvas in hero header
+    ───────────────────────────────────────────────── */
+    function setupHeroCanvas() {
+        if (prefersReducedMotion) return;
+        const header = document.querySelector("header");
+        if (!header) return;
+
+        const canvas = document.createElement("canvas");
+        canvas.id = "hero-canvas";
+        header.insertBefore(canvas, header.firstChild);
+
+        const ctx  = canvas.getContext("2d");
+        let rafId  = null;
+
+        const resize = () => {
+            canvas.width  = header.offsetWidth;
+            canvas.height = header.offsetHeight;
+        };
+        resize();
+        new ResizeObserver(resize).observe(header);
+
+        const COUNT = 32;
+        const particles = Array.from({ length: COUNT }, () => ({
+            x:     Math.random() * canvas.width,
+            y:     Math.random() * canvas.height,
+            r:     Math.random() * 2.2 + 0.7,
+            dx:    (Math.random() - 0.5) * 0.32,
+            dy:    (Math.random() - 0.5) * 0.32,
+            alpha: Math.random() * 0.38 + 0.08,
+            color: Math.random() > 0.5 ? "15,118,110" : "199,107,58"
+        }));
+
+        const draw = () => {
+            const w = canvas.width, h = canvas.height;
+            ctx.clearRect(0, 0, w, h);
+
+            particles.forEach(p => {
+                p.x = (p.x + p.dx + w) % w;
+                p.y = (p.y + p.dy + h) % h;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+                ctx.fill();
             });
+
+            for (let i = 0; i < COUNT; i++) {
+                for (let j = i + 1; j < COUNT; j++) {
+                    const dx   = particles[i].x - particles[j].x;
+                    const dy   = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 110) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(15,118,110,${0.07 * (1 - dist / 110)})`;
+                        ctx.lineWidth   = 0.7;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            rafId = requestAnimationFrame(draw);
+        };
+
+        // Pause when header scrolls out of view to save CPU
+        new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                if (!rafId) rafId = requestAnimationFrame(draw);
+            } else {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+        }).observe(header);
+
+        rafId = requestAnimationFrame(draw);
+    }
+
+    /* ─────────────────────────────────────────────────
+       Floating ambient orbs in hero
+    ───────────────────────────────────────────────── */
+    function setupHeroOrbs() {
+        if (prefersReducedMotion) return;
+        const header = document.querySelector("header");
+        if (!header) return;
+
+        ["hero-orb hero-orb-1", "hero-orb hero-orb-2"].forEach(cls => {
+            const orb = document.createElement("div");
+            orb.className = cls;
+            header.appendChild(orb);
         });
     }
 
+    /* ─────────────────────────────────────────────────
+       Scroll-down indicator in hero
+    ───────────────────────────────────────────────── */
+    function setupScrollIndicator() {
+        const header = document.querySelector("header");
+        if (!header) return;
+
+        const ind = document.createElement("div");
+        ind.className = "scroll-indicator";
+        ind.setAttribute("aria-label", "Scroll down");
+        ind.innerHTML = `<i class="fas fa-chevron-down" aria-hidden="true"></i>`;
+
+        ind.addEventListener("click", () => {
+            const about = document.querySelector("#about");
+            if (!about) return;
+            const navH = siteNav ? siteNav.getBoundingClientRect().height + 24 : 88;
+            window.scrollTo({
+                top:      Math.max(0, about.getBoundingClientRect().top + window.pageYOffset - navH),
+                behavior: "smooth"
+            });
+        });
+
+        header.appendChild(ind);
+
+        window.addEventListener("scroll", () => {
+            ind.style.opacity = window.scrollY > 60 ? "0" : "";
+        }, { passive: true });
+    }
+
+    /* ─────────────────────────────────────────────────
+       Section reveal direction hints
+    ───────────────────────────────────────────────── */
+    function assignRevealDirections() {
+        const dirs = ["up","left","right","up","left","right","up","up","left","right","up","up"];
+        document.querySelectorAll("main section.reveal").forEach((sec, i) => {
+            sec.dataset.dir = dirs[i % dirs.length] || "up";
+        });
+    }
+
+    /* ─────────────────────────────────────────────────
+       Init
+    ───────────────────────────────────────────────── */
     function init() {
+        assignRevealDirections();
+        setupIntroTyping();
         setupMobileNav();
         setupActiveNavLink();
         setupScrollReveal();
@@ -296,6 +411,10 @@
         setupPillPopIn();
         setupSmoothAnchors();
         setupTopButton();
+
+        setupHeroCanvas();
+        setupHeroOrbs();
+        setupScrollIndicator();
 
         updateScrollUI();
         window.addEventListener("scroll", onScroll, { passive: true });

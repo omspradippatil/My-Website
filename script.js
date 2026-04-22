@@ -360,6 +360,52 @@
     }
 
     /* ─────────────────────────────────────────────────
+       Magnetic buttons
+    ───────────────────────────────────────────────── */
+    function setupMagneticButtons() {
+        if (prefersReducedMotion) return;
+        if (window.matchMedia("(hover: none)").matches) return;
+
+        document.querySelectorAll(".btn").forEach(btn => {
+            btn.addEventListener("mousemove", e => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width  / 2;
+                const y = e.clientY - rect.top  - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px) translateY(-1px)`;
+            });
+            btn.addEventListener("mouseleave", () => {
+                btn.style.transform = "";
+                btn.style.transition = "transform 0.4s cubic-bezier(.34,1.56,.64,1)";
+                setTimeout(() => (btn.style.transition = ""), 420);
+            });
+        });
+    }
+
+    /* ─────────────────────────────────────────────────
+       Hero card 3D parallax on mouse move
+    ───────────────────────────────────────────────── */
+    function setupHeroParallax() {
+        if (prefersReducedMotion) return;
+        if (window.matchMedia("(hover: none)").matches) return;
+
+        const header   = document.querySelector("header");
+        const heroCard = document.querySelector(".hero-card");
+        if (!header || !heroCard) return;
+
+        header.addEventListener("mousemove", e => {
+            const rect = header.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width  - 0.5;
+            const y = (e.clientY - rect.top)  / rect.height - 0.5;
+            heroCard.style.transform =
+                `perspective(900px) rotateY(${x * 5}deg) rotateX(${-y * 4}deg) translateY(-3px)`;
+        });
+
+        header.addEventListener("mouseleave", () => {
+            heroCard.style.transform = "";
+        });
+    }
+
+    /* ─────────────────────────────────────────────────
        Scroll-down indicator in hero
     ───────────────────────────────────────────────── */
     function setupScrollIndicator() {
@@ -389,6 +435,101 @@
     }
 
     /* ─────────────────────────────────────────────────
+       Click ripple on buttons
+    ───────────────────────────────────────────────── */
+    function setupRippleEffect() {
+        if (prefersReducedMotion) return;
+        document.querySelectorAll(".btn").forEach(btn => {
+            btn.addEventListener("click", e => {
+                const rect   = btn.getBoundingClientRect();
+                const size   = Math.max(rect.width, rect.height);
+                const x      = e.clientX - rect.left - size / 2;
+                const y      = e.clientY - rect.top  - size / 2;
+                const ripple = document.createElement("span");
+                ripple.className  = "ripple-wave";
+                ripple.style.cssText =
+                    `width:${size}px;height:${size}px;left:${x}px;top:${y}px;`;
+                btn.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 700);
+            });
+        });
+    }
+
+    /* ─────────────────────────────────────────────────
+       3D tilt on all cards
+    ───────────────────────────────────────────────── */
+    function setupCardTilt() {
+        if (prefersReducedMotion) return;
+        if (window.matchMedia("(hover: none)").matches) return;
+
+        document.querySelectorAll(".info-card, .contact-item, .platform-link").forEach(card => {
+            card.addEventListener("mousemove", e => {
+                const rect = card.getBoundingClientRect();
+                const x    = (e.clientX - rect.left) / rect.width  - 0.5;
+                const y    = (e.clientY - rect.top)  / rect.height - 0.5;
+                // Use setProperty with important to override CSS !important
+                card.style.setProperty(
+                    "transform",
+                    `perspective(700px) rotateY(${x * 10}deg) rotateX(${-y * 8}deg) translateY(-5px) scale(1.01)`,
+                    "important"
+                );
+            });
+            card.addEventListener("mouseleave", () => {
+                card.style.removeProperty("transform");
+            });
+        });
+    }
+
+    /* ─────────────────────────────────────────────────
+       Section side-nav dots
+    ───────────────────────────────────────────────── */
+    function setupSectionDots() {
+        const sections = Array.from(document.querySelectorAll("main > section[id]"));
+        if (!sections.length) return;
+
+        const labels = {
+            about: "About", experience: "Experience", education: "Education",
+            skills: "Skills", projects: "Projects", achievements: "Achievements",
+            activities: "Activities", languages: "Languages", github: "GitHub",
+            cv: "CV", contact: "Contact", links: "Links"
+        };
+
+        const nav = document.createElement("nav");
+        nav.className = "section-dots";
+        nav.setAttribute("aria-label", "Section navigation");
+
+        const dots = sections.map(sec => {
+            const dot = document.createElement("button");
+            dot.className = "section-dot";
+            dot.dataset.label = labels[sec.id] || sec.id;
+            dot.setAttribute("aria-label", `Go to ${labels[sec.id] || sec.id}`);
+            dot.addEventListener("click", () => {
+                const navH = siteNav ? siteNav.getBoundingClientRect().height + 24 : 88;
+                window.scrollTo({
+                    top:      Math.max(0, sec.getBoundingClientRect().top + window.pageYOffset - navH),
+                    behavior: "smooth"
+                });
+            });
+            nav.appendChild(dot);
+            return { dot, sec };
+        });
+
+        document.body.appendChild(nav);
+
+        if (!("IntersectionObserver" in window)) return;
+
+        const observer = new IntersectionObserver(
+            entries => entries.forEach(entry => {
+                const match = dots.find(d => d.sec === entry.target);
+                if (match) match.dot.classList.toggle("active", entry.isIntersecting);
+            }),
+            { rootMargin: "-30% 0px -55% 0px", threshold: 0 }
+        );
+
+        dots.forEach(({ sec }) => observer.observe(sec));
+    }
+
+    /* ─────────────────────────────────────────────────
        Section reveal direction hints
     ───────────────────────────────────────────────── */
     function assignRevealDirections() {
@@ -414,6 +555,11 @@
 
         setupHeroCanvas();
         setupHeroOrbs();
+        setupMagneticButtons();
+        setupHeroParallax();
+        setupRippleEffect();
+        setupCardTilt();
+        setupSectionDots();
         setupScrollIndicator();
 
         updateScrollUI();

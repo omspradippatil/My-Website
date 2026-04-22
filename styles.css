@@ -865,21 +865,22 @@
            ── ANIMATION ENHANCEMENTS ───────────────────────────────
            ════════════════════════════════════════════════════════════ */
 
-        /* ── Hero intro: use per-child animations instead of group ── */
+        /* ── Hero intro: cancel group animation, reveal immediately ── */
         .hero-intro {
-            animation: none !important;
-            opacity: 1 !important;
-            transform: none !important;
+            animation: none;
+            opacity: 1;
+            transform: none;
         }
 
+        /* Eyebrow and headline animate in individually */
         .eyebrow {
             opacity: 0;
-            animation: fadeSlideUp 0.65s cubic-bezier(.22,1,.36,1) 0.15s both;
+            animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.2s both;
         }
 
         .typing-headline {
             opacity: 0;
-            animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.38s both;
+            animation: fadeSlideUp 0.75s cubic-bezier(.22,1,.36,1) 0.45s both;
         }
 
         /* Tagline & hero-actions: revealed from JS after typing completes */
@@ -905,39 +906,37 @@
             transform: translateY(0);
         }
 
-        @keyframes fadeSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(28px) scale(0.97);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
+        /* ── Gradient shimmer on typed name (safe cross-browser) ── */
+        .typing-text {
+            display: inline;
+        }
+
+        @supports (-webkit-background-clip: text) or (background-clip: text) {
+            .typing-text {
+                background: linear-gradient(
+                    110deg,
+                    var(--stone) 0%,
+                    var(--teal-dark) 35%,
+                    var(--copper) 60%,
+                    var(--stone) 100%
+                );
+                background-size: 260% auto;
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: nameShimmer 5.5s linear 2s infinite;
             }
         }
 
-        /* ── Gradient shimmer on typed name ── */
-        .typing-text {
-            background: linear-gradient(
-                110deg,
-                var(--stone) 0%,
-                var(--teal-dark) 35%,
-                var(--copper) 60%,
-                var(--stone) 100%
-            );
-            background-size: 260% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-            animation: nameShimmer 5.5s linear 2.5s infinite;
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(28px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0)    scale(1);    }
         }
 
         @keyframes nameShimmer {
-            0%   { background-position: 0% center; }
+            0%   { background-position: 0%   center; }
             100% { background-position: 260% center; }
         }
-
         /* ── Particle canvas inside header ── */
         #hero-canvas {
             position: absolute;

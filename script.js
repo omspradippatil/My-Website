@@ -44,6 +44,13 @@
             return;
         }
 
+        // Immediately reveal everything in the current viewport
+        revealEls.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight) el.classList.add("visible");
+        });
+
+        // Reveal the rest as user scrolls
         const observer = new IntersectionObserver(
             (entries, io) => {
                 entries.forEach(entry => {
@@ -52,10 +59,12 @@
                     io.unobserve(entry.target);
                 });
             },
-            { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
+            { threshold: 0.06, rootMargin: "0px 0px -4% 0px" }
         );
 
-        revealEls.forEach(el => observer.observe(el));
+        revealEls.forEach(el => {
+            if (!el.classList.contains("visible")) observer.observe(el);
+        });
     }
 
     /* ─────────────────────────────────────────────────
@@ -543,6 +552,14 @@
        Init
     ───────────────────────────────────────────────── */
     function init() {
+        // Diagnostic: tell the user if animations are system-disabled
+        if (prefersReducedMotion) {
+            console.warn(
+                "[Portfolio] Windows/OS 'Reduce animations' is ON. " +
+                "Go to: Windows Settings → Accessibility → Visual Effects → Animation effects → turn ON"
+            );
+        }
+
         assignRevealDirections();
         setupIntroTyping();
         setupMobileNav();

@@ -10,10 +10,10 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Location</h4>
             <p>Boisar, Maharashtra</p>
-            <h4>Phone</h4>
+            <h4>WhatsApp (Only)</h4>
             <p>
-              <a href="tel:+919028915605" data-cursor="disable">
-                +91 9028915605
+              <a href="https://wa.me/917038064660" data-cursor="disable">
+                7038064660
               </a>
             </p>
             <h4>Email</h4>

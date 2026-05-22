@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Om Patil | Buy Me a Coffee</title>
+    <meta name="description" content="Support Om Pradip Patil's open-source work and projects.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://ompradippatil.netlify.app/donate/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+
+    <div id="progress-bar"></div>
+
+    <nav class="site-nav" aria-label="Primary">
+        <div class="site-nav-inner">
+            <a class="brand" href="/">Om Patil</a>
+            <a class="nav-back" href="/">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <button id="top-btn" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div class="toast" id="toast">✅ UPI ID copied!</div>
+
+    <div class="page">
+
+        <!-- Hero -->
+        <section class="support-hero">
+            <div class="avatar-wrap">
+                <div class="avatar-ring">O</div>
+                <div class="coffee-badge"><i class="fas fa-heart"></i></div>
+            </div>
+            <h1>Support My Work</h1>
+            <p class="tagline">
+                Hey, I'm <em class="dev-name">Om Pradip Patil</em> — a developer building open-source projects, tools, and experiments. Your support keeps the servers running and the coffee brewing ☕
+            </p>
+
+            <div class="stats-row">
+                <div class="stat-item">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">Awards</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Passion</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- What your support does -->
+        <div class="section-card reveal">
+            <h2><i class="fas fa-seedling" style="color:var(--teal);font-size:1.2rem;"></i> What Your Support Does</h2>
+            <ul class="perk-list">
+                <li class="perk-item">
+                    <div class="perk-icon"><i class="fas fa-server"></i></div>
+                    <div class="perk-text">
+                        <strong>Hosting & Domains</strong>
+                        <small>Keep my projects live and accessible to everyone</small>
+                    </div>
+                </li>
+                <li class="perk-item reveal reveal-delay-1">
+                    <div class="perk-icon"><i class="fas fa-tools"></i></div>
+                    <div class="perk-text">
+                        <strong>Dev Tools & Resources</strong>
+                        <small>APIs, software licenses, and learning materials</small>
+                    </div>
+                </li>
+                <li class="perk-item reveal reveal-delay-2">
+                    <div class="perk-icon"><i class="fas fa-code-branch"></i></div>
+                    <div class="perk-text">
+                        <strong>Open-Source Contributions</strong>
+                        <small>More time to build free tools and contribute to the community</small>
+                    </div>
+                </li>
+                <li class="perk-item reveal reveal-delay-3">
+                    <div class="perk-icon"><i class="fas fa-coffee"></i></div>
+                    <div class="perk-text">
+                        <strong>Late-Night Fuel ☕</strong>
+                        <small>Every great project starts at 2am with a hot cup</small>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- UPI Payment -->
+        <div class="upi-card reveal">
+            <h2><i class="fas fa-rupee-sign" style="color:var(--copper);font-size:1.2rem;"></i> Pay via UPI</h2>
+
+            <!-- UPI ID -->
+            <div class="upi-id-box">
+                <div class="upi-id-content">
+                    <span class="upi-id-label">UPI ID</span>
+                    <span class="upi-id-value" id="upi-id-text">omspradippatil-1@okhdfcbank</span>
+                </div>
+                <button class="copy-btn" id="copy-upi-btn" aria-label="Copy UPI ID">
+                    <i class="fas fa-copy"></i> Copy ID
+                </button>
+            </div>
+
+            <!-- Amount selector -->
+            <p class="amount-label">Choose an amount</p>
+            <div class="amount-grid">
+                <button class="amount-btn" data-amount="49" onclick="selectAmount(this, 49)">
+                    <span class="rupee">₹49</span>
+                    <span class="label">A snack 🍪</span>
+                </button>
+                <button class="amount-btn" data-amount="99" onclick="selectAmount(this, 99)">
+                    <span class="rupee">₹99</span>
+                    <span class="label">A coffee ☕</span>
+                </button>
+                <button class="amount-btn selected" data-amount="199" onclick="selectAmount(this, 199)">
+                    <span class="rupee">₹199</span>
+                    <span class="label">Fuel a build 🚀</span>
+                </button>
+                <button class="amount-btn" data-amount="499" onclick="selectAmount(this, 499)">
+                    <span class="rupee">₹499</span>
+                    <span class="label">Be a hero 🦸</span>
+                </button>
+            </div>
+
+            <!-- Pay buttons -->
+            <div class="pay-buttons">
+                <a id="upi-pay-btn" class="pay-btn pay-btn-upi" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'upi')">
+                    <div class="pay-icon"><i class="fas fa-mobile-alt"></i></div>
+                    Pay with Any UPI App
+                </a>
+
+                <div class="divider-row">or choose your app</div>
+
+                <a id="phonepe-btn" class="pay-btn pay-btn-phonepe" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'phonepe')">
+                    <div class="pay-icon"><i class="fas fa-p"></i></div>
+                    PhonePe
+                </a>
+                <a id="gpay-btn" class="pay-btn pay-btn-gpay" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'gpay')">
+                    <div class="pay-icon"><i class="fas fa-google"></i></div>
+                    Google Pay
+                </a>
+                <a id="paytm-btn" class="pay-btn pay-btn-paytm" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'paytm')">
+                    <div class="pay-icon"><i class="fas fa-wallet"></i></div>
+                    Paytm
+                </a>
+            </div>
+
+            <div class="note-card">
+                <span class="note-icon"><i class="fas fa-shield-alt"></i></span>
+                <p>
+                    <strong>100% Secure & Direct.</strong> Payments go directly to my UPI ID — no middleman, no platform fees. Just tap a button and your UPI app opens instantly with the details pre-filled.
+                </p>
+            </div>
+        </div>
+
+        <!-- Back link -->
+        <div class="back-link-row reveal">
+            <a class="back-link" href="/">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="reveal">
+            <p>© 2026 Om Pradip Patil. Made with ❤️ from Boisar, Maharashtra.</p>
+            <div class="socials">
+                <a href="https://github.com/omspradippatil" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://x.com/omspradippatil" target="_blank" rel="noopener" aria-label="X (Twitter)"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/omspradippatil" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://in.linkedin.com/in/om-pradip-patil" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </footer>
+
+    </div><!-- /.page -->
+
+    <script>
+        // ── UPI Config
+        const UPI_ID = 'omspradippatil-1@okhdfcbank';
+        const PAYEE_NAME = 'Om Pradip Patil';
+        let selectedAmount = 199;
+
+        // ── Amount selector
+        function selectAmount(el, amount) {
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedAmount = amount;
+        }
+
+        // ── UPI deep links
+        function buildUpiUrl(app) {
+            const note = encodeURIComponent('Supporting Om Pradip Patil');
+            const name = encodeURIComponent(PAYEE_NAME);
+            const upi  = encodeURIComponent(UPI_ID);
+            const amt  = selectedAmount.toFixed(2);
+
+            const base = `upi://pay?pa=${upi}&pn=${name}&am=${amt}&cu=INR&tn=${note}`;
+
+            switch (app) {
+                case 'phonepe': return `phonepe://pay?pa=${upi}&pn=${name}&am=${amt}&cu=INR&tn=${note}`;
+                case 'gpay':    return `tez://upi/pay?pa=${upi}&pn=${name}&am=${amt}&cu=INR&tn=${note}`;
+                case 'paytm':   return `paytmmp://pay?pa=${upi}&pn=${name}&am=${amt}&cu=INR&tn=${note}`;
+                default:        return base;
+            }
+        }
+
+        function openUPI(e, app) {
+            e.preventDefault();
+            const url = buildUpiUrl(app);
+            window.location.href = url;
+
+            // Fallback toast after short delay
+            setTimeout(() => {
+                showToast('Opening your UPI app… If it didn\'t open, copy the UPI ID manually.');
+            }, 1000);
+        }
+
+        // ── Copy UPI ID
+        document.getElementById('copy-upi-btn').addEventListener('click', function () {
+            navigator.clipboard.writeText(UPI_ID).then(() => {
+                this.textContent = '';
+                this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                this.classList.add('copied');
+                showToast('✅ UPI ID copied to clipboard!');
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-copy"></i> Copy ID';
+                    this.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                showToast('Please copy manually: ' + UPI_ID);
+            });
+        });
+
+        // ── Toast
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // ── Scroll progress
+        const bar = document.getElementById('progress-bar');
+        const nav = document.querySelector('.site-nav');
+        const topBtn = document.getElementById('top-btn');
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const total = document.documentElement.scrollHeight - window.innerHeight;
+            bar.style.width = (total > 0 ? (scrolled / total) * 100 : 0) + '%';
+            nav.classList.toggle('is-scrolled', scrolled > 20);
+            topBtn.classList.toggle('show', scrolled > 300);
+        }, { passive: true });
+
+        topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // ── Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

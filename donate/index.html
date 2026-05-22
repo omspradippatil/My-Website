@@ -64,41 +64,6 @@
             </div>
         </section>
 
-        <!-- What your support does -->
-        <div class="section-card reveal">
-            <h2><i class="fas fa-seedling" style="color:var(--teal);font-size:1.2rem;"></i> What Your Support Does</h2>
-            <ul class="perk-list">
-                <li class="perk-item">
-                    <div class="perk-icon"><i class="fas fa-server"></i></div>
-                    <div class="perk-text">
-                        <strong>Hosting & Domains</strong>
-                        <small>Keep my projects live and accessible to everyone</small>
-                    </div>
-                </li>
-                <li class="perk-item reveal reveal-delay-1">
-                    <div class="perk-icon"><i class="fas fa-tools"></i></div>
-                    <div class="perk-text">
-                        <strong>Dev Tools & Resources</strong>
-                        <small>APIs, software licenses, and learning materials</small>
-                    </div>
-                </li>
-                <li class="perk-item reveal reveal-delay-2">
-                    <div class="perk-icon"><i class="fas fa-code-branch"></i></div>
-                    <div class="perk-text">
-                        <strong>Open-Source Contributions</strong>
-                        <small>More time to build free tools and contribute to the community</small>
-                    </div>
-                </li>
-                <li class="perk-item reveal reveal-delay-3">
-                    <div class="perk-icon"><i class="fas fa-coffee"></i></div>
-                    <div class="perk-text">
-                        <strong>Late-Night Fuel ☕</strong>
-                        <small>Every great project starts at 2am with a hot cup</small>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
         <!-- UPI Payment -->
         <div class="upi-card reveal">
             <h2><i class="fas fa-rupee-sign" style="color:var(--copper);font-size:1.2rem;"></i> Pay via UPI</h2>
@@ -135,6 +100,26 @@
                 </button>
             </div>
 
+            <!-- Custom amount -->
+            <div class="custom-amount-wrap">
+                <label class="custom-amount-label" for="custom-amount">
+                    <i class="fas fa-pen"></i> Or enter a custom amount
+                </label>
+                <div class="custom-amount-row">
+                    <span class="custom-rupee-prefix">₹</span>
+                    <input
+                        type="number"
+                        id="custom-amount"
+                        class="custom-amount-input"
+                        placeholder="e.g. 251"
+                        min="1"
+                        max="100000"
+                        inputmode="numeric"
+                        oninput="handleCustomAmount(this)"
+                    >
+                </div>
+            </div>
+
             <!-- Pay buttons -->
             <div class="pay-buttons">
                 <a id="upi-pay-btn" class="pay-btn pay-btn-upi" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'upi')">
@@ -164,6 +149,41 @@
                     <strong>100% Secure & Direct.</strong> Payments go directly to my UPI ID — no middleman, no platform fees. Just tap a button and your UPI app opens instantly with the details pre-filled.
                 </p>
             </div>
+        </div>
+
+        <!-- What your support does -->
+        <div class="section-card reveal">
+            <h2><i class="fas fa-seedling" style="color:var(--teal);font-size:1.2rem;"></i> What Your Support Does</h2>
+            <ul class="perk-list">
+                <li class="perk-item">
+                    <div class="perk-icon"><i class="fas fa-server"></i></div>
+                    <div class="perk-text">
+                        <strong>Hosting & Domains</strong>
+                        <small>Keep my projects live and accessible to everyone</small>
+                    </div>
+                </li>
+                <li class="perk-item reveal reveal-delay-1">
+                    <div class="perk-icon"><i class="fas fa-tools"></i></div>
+                    <div class="perk-text">
+                        <strong>Dev Tools & Resources</strong>
+                        <small>APIs, software licenses, and learning materials</small>
+                    </div>
+                </li>
+                <li class="perk-item reveal reveal-delay-2">
+                    <div class="perk-icon"><i class="fas fa-code-branch"></i></div>
+                    <div class="perk-text">
+                        <strong>Open-Source Contributions</strong>
+                        <small>More time to build free tools and contribute to the community</small>
+                    </div>
+                </li>
+                <li class="perk-item reveal reveal-delay-3">
+                    <div class="perk-icon"><i class="fas fa-coffee"></i></div>
+                    <div class="perk-text">
+                        <strong>Late-Night Fuel ☕</strong>
+                        <small>Every great project starts at 2am with a hot cup</small>
+                    </div>
+                </li>
+            </ul>
         </div>
 
         <!-- Back link -->
@@ -197,6 +217,27 @@
             document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
             el.classList.add('selected');
             selectedAmount = amount;
+            // Clear custom input when preset is chosen
+            const customInput = document.getElementById('custom-amount');
+            if (customInput) customInput.value = '';
+            customInput.classList.remove('active');
+        }
+
+        // ── Custom amount handler
+        function handleCustomAmount(input) {
+            const val = parseFloat(input.value);
+            if (val && val > 0) {
+                document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+                selectedAmount = val;
+                input.classList.add('active');
+            } else {
+                input.classList.remove('active');
+                // Restore default if empty
+                if (!input.value) {
+                    selectedAmount = 199;
+                    document.querySelector('.amount-btn[data-amount="199"]').classList.add('selected');
+                }
+            }
         }
 
         // ── UPI deep links

@@ -515,7 +515,7 @@ body::before {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 12px;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
 }
 
 .amount-btn {
@@ -558,6 +558,71 @@ body::before {
 .amount-btn.selected .rupee,
 .amount-btn.selected .label {
     color: var(--white);
+}
+
+/* ── Custom Amount ──────────────────────────── */
+.custom-amount-wrap {
+    margin-bottom: 28px;
+    text-align: left;
+}
+
+.custom-amount-label {
+    display: inline-block;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.custom-amount-row {
+    display: flex;
+    align-items: center;
+    background: var(--paper);
+    border: 2px solid rgba(17,24,39,.08);
+    border-radius: var(--radius-md);
+    padding: 12px 18px;
+    transition: all .2s ease;
+}
+
+.custom-amount-row:focus-within,
+.custom-amount-input.active {
+    background: var(--white);
+    border-color: var(--teal);
+    box-shadow: 0 4px 12px rgba(15,118,110,.1);
+}
+
+.custom-rupee-prefix {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--stone);
+    margin-right: 8px;
+}
+
+.custom-amount-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--stone);
+    outline: none;
+    width: 100%;
+}
+
+.custom-amount-input::placeholder {
+    color: rgba(91, 100, 116, 0.5);
+}
+
+/* Hide spinner for number input */
+.custom-amount-input::-webkit-outer-spin-button,
+.custom-amount-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.custom-amount-input[type=number] {
+    -moz-appearance: textfield;
 }
 
 /* ── Pay buttons ────────────────────────────── */

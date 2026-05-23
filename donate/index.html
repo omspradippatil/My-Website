@@ -120,71 +120,29 @@
                 </div>
             </div>
 
-            <!-- Payment Tabs -->
-            <div class="payment-tabs">
-                <button class="tab-btn active" onclick="switchTab(this, 'qr-tab')" id="tab-btn-qr">
-                    <i class="fas fa-qrcode"></i> QR Code (Scan)
-                </button>
-                <button class="tab-btn" onclick="switchTab(this, 'apps-tab')" id="tab-btn-apps">
-                    <i class="fas fa-mobile-alt"></i> Direct Pay (App)
+            <!-- QR Code Section -->
+            <div class="qr-container">
+                <div class="qr-frame">
+                    <img id="upi-qr-image" src="" alt="UPI QR Code" class="qr-image">
+                    <div class="qr-logo">O</div>
+                </div>
+                <button class="download-qr-btn" onclick="downloadQRCode()" id="download-qr-btn">
+                    <i class="fas fa-download"></i> Save QR Code
                 </button>
             </div>
-
-            <!-- QR Tab Content -->
-            <div id="qr-tab" class="tab-content active">
-                <div class="qr-container">
-                    <div class="qr-frame">
-                        <img id="upi-qr-image" src="" alt="UPI QR Code" class="qr-image">
-                        <div class="qr-logo">O</div>
-                    </div>
-                    <button class="download-qr-btn" onclick="downloadQRCode()" id="download-qr-btn">
-                        <i class="fas fa-download"></i> Save QR Code
-                    </button>
-                </div>
-                <div class="qr-instructions">
-                    <p class="instr-title"><i class="fas fa-info-circle"></i> How to pay:</p>
-                    <ul class="instr-list">
-                        <li><strong>On Desktop:</strong> Scan the QR code using any UPI app (PhonePe, GPay, Paytm, BHIM, etc.).</li>
-                        <li><strong>On Mobile:</strong> Save/Screenshot the QR code, open your UPI app, and upload it from the gallery scanner.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Apps Tab Content -->
-            <div id="apps-tab" class="tab-content">
-                <div class="pay-buttons">
-                    <a id="upi-pay-btn" class="pay-btn pay-btn-upi" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'upi')">
-                        <div class="pay-icon"><i class="fas fa-mobile-alt"></i></div>
-                        Pay with Any UPI App
-                    </a>
-
-                    <div class="divider-row">or choose your app</div>
-
-                    <a id="phonepe-btn" class="pay-btn pay-btn-phonepe" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'phonepe')">
-                        <div class="pay-icon"><i class="fas fa-p"></i></div>
-                        PhonePe
-                    </a>
-                    <a id="gpay-btn" class="pay-btn pay-btn-gpay" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'gpay')">
-                        <div class="pay-icon"><i class="fas fa-google"></i></div>
-                        Google Pay
-                    </a>
-                    <a id="paytm-btn" class="pay-btn pay-btn-paytm" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'paytm')">
-                        <div class="pay-icon"><i class="fas fa-wallet"></i></div>
-                        Paytm
-                    </a>
-                </div>
-                <div class="app-warning">
-                    <span class="warning-icon"><i class="fas fa-exclamation-triangle"></i></span>
-                    <p class="warning-text">
-                        <strong>Important:</strong> Direct UPI links are often restricted by mobile browsers/UPI apps for personal accounts. If your payment app shows limit errors or fails, please use the <strong>QR Code</strong> tab or <strong>Copy ID</strong>.
-                    </p>
-                </div>
+            
+            <div class="qr-instructions">
+                <p class="instr-title"><i class="fas fa-info-circle"></i> How to pay:</p>
+                <ul class="instr-list">
+                    <li><strong>On Desktop:</strong> Scan the QR code using any UPI app (PhonePe, GPay, Paytm, BHIM, etc.).</li>
+                    <li><strong>On Mobile:</strong> Save/Screenshot the QR code, open your UPI app, and upload it from the gallery scanner.</li>
+                </ul>
             </div>
 
             <div class="note-card">
                 <span class="note-icon"><i class="fas fa-shield-alt"></i></span>
                 <p>
-                    <strong>100% Secure & Direct.</strong> Payments go directly to my UPI ID — no middleman, no platform fees. Just tap a button and your UPI app opens instantly with the details pre-filled.
+                    <strong>100% Secure & Direct.</strong> Payments go directly to my UPI ID — no middleman, no platform fees. Just scan the QR code or copy the UPI ID to pay.
                 </p>
             </div>
         </div>
@@ -249,16 +207,6 @@
         const UPI_ID = 'omspradippatil-1@okhdfcbank';
         const PAYEE_NAME = 'Om Pradip Patil';
         let selectedAmount = 199;
-
-        // ── Tab switcher
-        function switchTab(btn, tabId) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            btn.classList.add('active');
-            const target = document.getElementById(tabId);
-            if (target) target.classList.add('active');
-        }
 
         // ── QR Code updater
         function updateQRCode() {
@@ -353,34 +301,6 @@
                 }
             }
             updateQRCode();
-        }
-
-        // ── UPI deep links
-        function buildUpiUrl(app) {
-            const note = encodeURIComponent('Supporting Om Pradip Patil');
-            const name = encodeURIComponent(PAYEE_NAME);
-            const upi  = encodeURIComponent(UPI_ID);
-            const amt  = selectedAmount.toFixed(2);
-
-            const base = `upi://pay?pa=${upi}&pn=${name}&am=${amt}&cu=INR&tn=${note}`;
-
-            switch (app) {
-                case 'phonepe': return `phonepe://pay?pa=${upi}&pn=${name}&am=${amt}&cu=INR&tn=${note}`;
-                case 'gpay':    return `tez://upi/pay?pa=${upi}&pn=${name}&am=${amt}&cu=INR&tn=${note}`;
-                case 'paytm':   return `paytmmp://pay?pa=${upi}&pn=${name}&am=${amt}&cu=INR&tn=${note}`;
-                default:        return base;
-            }
-        }
-
-        function openUPI(e, app) {
-            e.preventDefault();
-            const url = buildUpiUrl(app);
-            window.location.href = url;
-
-            // Fallback toast after short delay
-            setTimeout(() => {
-                showToast('Opening your UPI app… If it didn\'t open, please use the QR Code.');
-            }, 1000);
         }
 
         // ── Copy UPI ID

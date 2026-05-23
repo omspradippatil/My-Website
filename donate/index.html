@@ -120,27 +120,65 @@
                 </div>
             </div>
 
-            <!-- Pay buttons -->
-            <div class="pay-buttons">
-                <a id="upi-pay-btn" class="pay-btn pay-btn-upi" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'upi')">
-                    <div class="pay-icon"><i class="fas fa-mobile-alt"></i></div>
-                    Pay with Any UPI App
-                </a>
+            <!-- Payment Tabs -->
+            <div class="payment-tabs">
+                <button class="tab-btn active" onclick="switchTab(this, 'qr-tab')" id="tab-btn-qr">
+                    <i class="fas fa-qrcode"></i> QR Code (Scan)
+                </button>
+                <button class="tab-btn" onclick="switchTab(this, 'apps-tab')" id="tab-btn-apps">
+                    <i class="fas fa-mobile-alt"></i> Direct Pay (App)
+                </button>
+            </div>
 
-                <div class="divider-row">or choose your app</div>
+            <!-- QR Tab Content -->
+            <div id="qr-tab" class="tab-content active">
+                <div class="qr-container">
+                    <div class="qr-frame">
+                        <img id="upi-qr-image" src="" alt="UPI QR Code" class="qr-image">
+                        <div class="qr-logo">O</div>
+                    </div>
+                    <button class="download-qr-btn" onclick="downloadQRCode()" id="download-qr-btn">
+                        <i class="fas fa-download"></i> Save QR Code
+                    </button>
+                </div>
+                <div class="qr-instructions">
+                    <p class="instr-title"><i class="fas fa-info-circle"></i> How to pay:</p>
+                    <ul class="instr-list">
+                        <li><strong>On Desktop:</strong> Scan the QR code using any UPI app (PhonePe, GPay, Paytm, BHIM, etc.).</li>
+                        <li><strong>On Mobile:</strong> Save/Screenshot the QR code, open your UPI app, and upload it from the gallery scanner.</li>
+                    </ul>
+                </div>
+            </div>
 
-                <a id="phonepe-btn" class="pay-btn pay-btn-phonepe" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'phonepe')">
-                    <div class="pay-icon"><i class="fas fa-p"></i></div>
-                    PhonePe
-                </a>
-                <a id="gpay-btn" class="pay-btn pay-btn-gpay" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'gpay')">
-                    <div class="pay-icon"><i class="fas fa-google"></i></div>
-                    Google Pay
-                </a>
-                <a id="paytm-btn" class="pay-btn pay-btn-paytm" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'paytm')">
-                    <div class="pay-icon"><i class="fas fa-wallet"></i></div>
-                    Paytm
-                </a>
+            <!-- Apps Tab Content -->
+            <div id="apps-tab" class="tab-content">
+                <div class="pay-buttons">
+                    <a id="upi-pay-btn" class="pay-btn pay-btn-upi" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'upi')">
+                        <div class="pay-icon"><i class="fas fa-mobile-alt"></i></div>
+                        Pay with Any UPI App
+                    </a>
+
+                    <div class="divider-row">or choose your app</div>
+
+                    <a id="phonepe-btn" class="pay-btn pay-btn-phonepe" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'phonepe')">
+                        <div class="pay-icon"><i class="fas fa-p"></i></div>
+                        PhonePe
+                    </a>
+                    <a id="gpay-btn" class="pay-btn pay-btn-gpay" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'gpay')">
+                        <div class="pay-icon"><i class="fas fa-google"></i></div>
+                        Google Pay
+                    </a>
+                    <a id="paytm-btn" class="pay-btn pay-btn-paytm" href="#" target="_blank" rel="noopener" onclick="openUPI(event, 'paytm')">
+                        <div class="pay-icon"><i class="fas fa-wallet"></i></div>
+                        Paytm
+                    </a>
+                </div>
+                <div class="app-warning">
+                    <span class="warning-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                    <p class="warning-text">
+                        <strong>Important:</strong> Direct UPI links are often restricted by mobile browsers/UPI apps for personal accounts. If your payment app shows limit errors or fails, please use the <strong>QR Code</strong> tab or <strong>Copy ID</strong>.
+                    </p>
+                </div>
             </div>
 
             <div class="note-card">
@@ -212,15 +250,91 @@
         const PAYEE_NAME = 'Om Pradip Patil';
         let selectedAmount = 199;
 
+        // ── Tab switcher
+        function switchTab(btn, tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            btn.classList.add('active');
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+        }
+
+        // ── QR Code updater
+        function updateQRCode() {
+            const qrImage = document.getElementById('upi-qr-image');
+            if (!qrImage) return;
+
+            const note = encodeURIComponent('Supporting Om Pradip Patil');
+            const name = encodeURIComponent(PAYEE_NAME);
+            const upi  = encodeURIComponent(UPI_ID);
+            const amt  = selectedAmount.toFixed(2);
+
+            const upiUrl = `upi://pay?pa=${upi}&pn=${name}&am=${amt}&cu=INR&tn=${note}`;
+            // We use api.qrserver.com with a premium teal color theme matching the page
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0f766e&data=${encodeURIComponent(upiUrl)}`;
+            
+            qrImage.setAttribute('src', qrApiUrl);
+        }
+
+        // ── Download QR Code
+        async function downloadQRCode() {
+            const qrImage = document.getElementById('upi-qr-image');
+            if (!qrImage || !qrImage.src) return;
+
+            const btn = document.getElementById('download-qr-btn');
+            if (!btn) return;
+
+            btn.disabled = true;
+            btn.textContent = '';
+            
+            const spin = document.createElement('i');
+            spin.className = 'fas fa-spinner fa-spin';
+            btn.appendChild(spin);
+            btn.appendChild(document.createTextNode(' Saving...'));
+
+            try {
+                const response = await fetch(qrImage.src);
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = `Support_Om_Patil_₹${selectedAmount}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(blobUrl);
+                
+                showToast('✅ QR Code saved successfully!');
+            } catch (e) {
+                console.error('QR code download failed, using fallback:', e);
+                window.open(qrImage.src, '_blank');
+                showToast('QR Code opened in new tab. Long press to save.');
+            } finally {
+                btn.textContent = '';
+                const dlIcon = document.createElement('i');
+                dlIcon.className = 'fas fa-download';
+                btn.appendChild(dlIcon);
+                btn.appendChild(document.createTextNode(' Save QR Code'));
+                btn.disabled = false;
+            }
+        }
+
         // ── Amount selector
         function selectAmount(el, amount) {
             document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
             el.classList.add('selected');
             selectedAmount = amount;
+            
             // Clear custom input when preset is chosen
             const customInput = document.getElementById('custom-amount');
-            if (customInput) customInput.value = '';
-            customInput.classList.remove('active');
+            if (customInput) {
+                customInput.value = '';
+                customInput.classList.remove('active');
+            }
+            
+            updateQRCode();
         }
 
         // ── Custom amount handler
@@ -232,12 +346,13 @@
                 input.classList.add('active');
             } else {
                 input.classList.remove('active');
-                // Restore default if empty
                 if (!input.value) {
                     selectedAmount = 199;
-                    document.querySelector('.amount-btn[data-amount="199"]').classList.add('selected');
+                    const defaultBtn = document.querySelector('.amount-btn[data-amount="199"]');
+                    if (defaultBtn) defaultBtn.classList.add('selected');
                 }
             }
+            updateQRCode();
         }
 
         // ── UPI deep links
@@ -264,7 +379,7 @@
 
             // Fallback toast after short delay
             setTimeout(() => {
-                showToast('Opening your UPI app… If it didn\'t open, copy the UPI ID manually.');
+                showToast('Opening your UPI app… If it didn\'t open, please use the QR Code.');
             }, 1000);
         }
 
@@ -272,11 +387,23 @@
         document.getElementById('copy-upi-btn').addEventListener('click', function () {
             navigator.clipboard.writeText(UPI_ID).then(() => {
                 this.textContent = '';
-                this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                const checkIcon = document.createElement('i');
+                checkIcon.className = 'fas fa-check';
+                this.appendChild(checkIcon);
+                this.appendChild(document.createTextNode(' Copied!'));
+                
                 this.classList.add('copied');
                 showToast('✅ UPI ID copied to clipboard!');
+                
                 setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-copy"></i> Copy ID';
+                    this.textContent = '';
+                    
+                    const copyIcon = document.createElement('i');
+                    copyIcon.className = 'fas fa-copy';
+                    this.appendChild(copyIcon);
+                    this.appendChild(document.createTextNode(' Copy ID'));
+                    
                     this.classList.remove('copied');
                 }, 2000);
             }).catch(() => {
@@ -287,9 +414,11 @@
         // ── Toast
         function showToast(msg) {
             const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 3000);
+            if (t) {
+                t.textContent = msg;
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 3000);
+            }
         }
 
         // ── Scroll progress
@@ -318,6 +447,9 @@
         }, { threshold: 0.08 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ── Initial QR Code setup
+        updateQRCode();
     </script>
 
 </body>

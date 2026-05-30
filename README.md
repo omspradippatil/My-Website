@@ -73,6 +73,10 @@ This project is open source and available under the [MIT License](LICENSE).
 - LinkedIn: [Om Pradip Patil](https://in.linkedin.com/in/om-pradip-patil)
 - Instagram: [@omspradippatil](https://www.instagram.com/omspradippatil)
 
+## ☕ Support
+
+If you find my work helpful, consider [supporting me](https://ompradippatil.netlify.app/donate).
+
 ---
 
 ❤️ Feel free to use this template to create your own portfolio website!

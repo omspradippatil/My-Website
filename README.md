@@ -2,11 +2,11 @@
 
 ![Portfolio Screenshot](Screenshot 2025-04-05 223027.png)
 
-## 🚀 [Live Demo](https://ompradippatil.netlify.app/)
+##  [Live Demo](https://ompradippatil.netlify.app/)
 
 A modern, responsive personal portfolio website showcasing my skills, education, and projects as a Computer Science Engineering student.
 
-## 📋 Features
+##  Features
 
 - **Responsive Design**: Optimized for all devices (desktop, tablet, mobile)
 - **Interactive UI**: Animated sections with GSAP and Particles.js
@@ -14,7 +14,7 @@ A modern, responsive personal portfolio website showcasing my skills, education,
 - **Modern UI Elements**: Clean cards, smooth animations, and intuitive navigation
 - **Performance Optimized**: Fast loading and smooth scrolling experience
 
-## 🛠️ Built With
+##  Built With
 
 - HTML5
 - CSS3 (with custom properties)
@@ -23,7 +23,7 @@ A modern, responsive personal portfolio website showcasing my skills, education,
 - Particles.js
 - FontAwesome Icons
 
-## 🖥️ Local Development
+##  Local Development
 
 To run this project locally:
 
@@ -43,7 +43,7 @@ To run this project locally:
    python -m http.server
    ```
 
-## 📸 Screenshots
+##  Screenshots
 
 <details>
   <summary>View screenshots</summary>
@@ -55,7 +55,7 @@ To run this project locally:
   ![About Section](Screenshot 2025-04-05 223113.png)
 </details>
 
-## 🔄 Updates & Roadmap
+##  Updates & Roadmap
 
 - [x] Initial release
 - [x] Added GitHub section
@@ -63,20 +63,31 @@ To run this project locally:
 - [ ] Implement content management system
 - [ ] Add blog section
 
-## 📄 License
+##  License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🔗 Connect with Me
+##  Connect with Me
 
 - GitHub: [@omspradippatil](https://github.com/omspradippatil)
 - LinkedIn: [Om Pradip Patil](https://in.linkedin.com/in/om-pradip-patil)
 - Instagram: [@omspradippatil](https://www.instagram.com/omspradippatil)
 
-## ☕ Support
+##  Support
 
 If you find my work helpful, consider [supporting me](https://ompradippatil.netlify.app/donate).
 
 ---
 
-❤️ Feel free to use this template to create your own portfolio website!
+ Feel free to use this template to create your own portfolio website!
+
+---
+
+##  Contact the Developer
+
+**Developed by OM Patil**
+
+- **Portfolio**: [ompradippatil.netlify.app](https://ompradippatil.netlify.app/)
+- **GitHub**: [@omspradippatil](https://github.com/omspradippatil)
+- **LinkedIn**: [OM Pradip Patil](https://in.linkedin.com/in/om-pradip-patil)
+- **Email**: [omspradippatil@gmail.com](mailto:omspradippatil@gmail.com)

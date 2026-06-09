@@ -1,0 +1,32 @@
+name: Deploy to Bytehost FTP
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
+
+jobs:
+  deploy:
+    name: Deploy to FTP Server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+      
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # The destination folder on your FTP server
+          server-dir: /ompatil.fast-page.org/htdocs/
+          # Optional: Exclude files you don't want to upload
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .vscode/**

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support Om Patil | Buy Me a Coffee</title>
+    <title>Support Om Patil | Donate</title>
     <meta name="description" content="Support Om Pradip Patil's open-source work and projects.">
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://ompradippatil.netlify.app/donate/">
@@ -34,7 +34,7 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <div class="toast" id="toast">✅ UPI ID copied!</div>
+    <div id="toast"></div>
 
     <div class="page">
 
@@ -67,20 +67,12 @@
             </div>
         </section>
 
-        <!-- UPI Payment -->
-        <div class="upi-card reveal">
-            <h2><i class="fas fa-rupee-sign" style="color:var(--copper);font-size:1.2rem;"></i> Pay via UPI</h2>
-
-            <!-- UPI ID -->
-            <div class="upi-id-box">
-                <div class="upi-id-content">
-                    <span class="upi-id-label">UPI ID</span>
-                    <span class="upi-id-value" id="upi-id-text">omspradippatil-1@okhdfcbank</span>
-                </div>
-                <button class="copy-btn" id="copy-upi-btn" aria-label="Copy UPI ID">
-                    <i class="fas fa-copy"></i> Copy ID
-                </button>
-            </div>
+        <!-- Razorpay Payment Card -->
+        <div class="upi-card reveal" id="razorpay-section">
+            <h2><i class="fas fa-credit-card" style="color:var(--teal);font-size:1.2rem;"></i> Support My Work</h2>
+            <p style="color:var(--muted); margin-bottom: 20px; font-size: 0.95rem;">
+                Powered by <strong>Razorpay</strong> — supports all Credit/Debit cards, NetBanking, UPI apps, and Wallets. 100% secure checkout.
+            </p>
 
             <!-- Amount selector -->
             <p class="amount-label">Choose an amount</p>
@@ -123,42 +115,8 @@
                 </div>
             </div>
 
-            <!-- QR Code Section -->
-            <div class="qr-container">
-                <div class="qr-frame">
-                    <img id="upi-qr-image" src="" alt="UPI QR Code" class="qr-image">
-                    <div class="qr-logo">O</div>
-                </div>
-                <button class="download-qr-btn" onclick="downloadQRCode()" id="download-qr-btn">
-                    <i class="fas fa-download"></i> Save QR Code
-                </button>
-            </div>
-            
-            <div class="qr-instructions">
-                <p class="instr-title"><i class="fas fa-info-circle"></i> How to pay:</p>
-                <ul class="instr-list">
-                    <li><strong>On Desktop:</strong> Scan the QR code using any UPI app (PhonePe, GPay, Paytm, BHIM, etc.).</li>
-                    <li><strong>On Mobile:</strong> Save/Screenshot the QR code, open your UPI app, and upload it from the gallery scanner.</li>
-                </ul>
-            </div>
-
-            <div class="note-card">
-                <span class="note-icon"><i class="fas fa-shield-alt"></i></span>
-                <p>
-                    <strong>100% Secure & Direct.</strong> Payments go directly to my UPI ID — no middleman, no platform fees. Just scan the QR code or copy the UPI ID to pay.
-                </p>
-            </div>
-        </div>
-
-        <!-- ── Razorpay Card Payment ───────────────────── -->
-        <div class="upi-card reveal" id="razorpay-section" style="margin-top: 0;">
-            <h2><i class="fas fa-credit-card" style="color:var(--teal);font-size:1.2rem;"></i> Pay via Card / NetBanking / UPI Apps</h2>
-            <p style="color:var(--muted); margin-bottom: 20px; font-size: 0.95rem;">
-                Powered by <strong>Razorpay</strong> — supports all Credit/Debit cards, NetBanking, UPI apps, and Wallets. 100% secure checkout.
-            </p>
-
             <!-- Amount display -->
-            <div style="display:flex; align-items:center; justify-content:space-between; background:var(--paper); border-radius:12px; padding:14px 18px; margin-bottom: 18px; border: 1px solid rgba(17,24,39,.08);">
+            <div style="display:flex; align-items:center; justify-content:space-between; background:var(--paper); border-radius:12px; padding:14px 18px; margin: 20px 0 18px; border: 1px solid rgba(17,24,39,.08);">
                 <span style="color:var(--muted); font-size:0.9rem;">You are paying:</span>
                 <span id="rzp-amount-display" style="font-size:1.4rem; font-weight:700; color:var(--teal-dark);">₹199</span>
             </div>
@@ -194,7 +152,7 @@
             <!-- Status message -->
             <div id="rzp-status" style="margin-top:16px; text-align:center; font-size:0.92rem; min-height:24px;"></div>
 
-            <!-- Accepted payment methods icons -->
+            <!-- Accepted payment methods -->
             <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:18px; flex-wrap:wrap;">
                 <span style="color:var(--muted); font-size:0.78rem; text-transform:uppercase; letter-spacing:.08em;">Accepted:</span>
                 <span style="background:#f7f2ea; border:1px solid rgba(17,24,39,.1); border-radius:6px; padding:4px 10px; font-size:0.8rem; font-weight:600; color:var(--stone);">Visa</span>
@@ -212,14 +170,14 @@
                 <li class="perk-item">
                     <div class="perk-icon"><i class="fas fa-server"></i></div>
                     <div class="perk-text">
-                        <strong>Hosting & Domains</strong>
+                        <strong>Hosting &amp; Domains</strong>
                         <small>Keep my projects live and accessible to everyone</small>
                     </div>
                 </li>
                 <li class="perk-item reveal reveal-delay-1">
                     <div class="perk-icon"><i class="fas fa-tools"></i></div>
                     <div class="perk-text">
-                        <strong>Dev Tools & Resources</strong>
+                        <strong>Dev Tools &amp; Resources</strong>
                         <small>APIs, software licenses, and learning materials</small>
                     </div>
                 </li>
@@ -261,86 +219,16 @@
     </div><!-- /.page -->
 
     <script>
-        // ── UPI Config
-        const UPI_ID = 'omspradippatil-1@okhdfcbank';
-        const PAYEE_NAME = 'Om Pradip Patil';
         let selectedAmount = 199;
-
-        // ── QR Code updater
-        function updateQRCode() {
-            const qrImage = document.getElementById('upi-qr-image');
-            if (!qrImage) return;
-
-            const note = encodeURIComponent('Supporting Om Pradip Patil');
-            const name = encodeURIComponent(PAYEE_NAME);
-            const upi  = encodeURIComponent(UPI_ID);
-            const amt  = selectedAmount.toFixed(2);
-
-            const upiUrl = `upi://pay?pa=${upi}&pn=${name}&am=${amt}&cu=INR&tn=${note}`;
-            // We use api.qrserver.com with a premium teal color theme matching the page
-            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=0f766e&data=${encodeURIComponent(upiUrl)}`;
-            
-            qrImage.setAttribute('src', qrApiUrl);
-        }
-
-        // ── Download QR Code
-        async function downloadQRCode() {
-            const qrImage = document.getElementById('upi-qr-image');
-            if (!qrImage || !qrImage.src) return;
-
-            const btn = document.getElementById('download-qr-btn');
-            if (!btn) return;
-
-            btn.disabled = true;
-            btn.textContent = '';
-            
-            const spin = document.createElement('i');
-            spin.className = 'fas fa-spinner fa-spin';
-            btn.appendChild(spin);
-            btn.appendChild(document.createTextNode(' Saving...'));
-
-            try {
-                const response = await fetch(qrImage.src);
-                const blob = await response.blob();
-                const blobUrl = URL.createObjectURL(blob);
-                
-                const a = document.createElement('a');
-                a.href = blobUrl;
-                a.download = `Support_Om_Patil_₹${selectedAmount}.png`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(blobUrl);
-                
-                showToast('✅ QR Code saved successfully!');
-            } catch (e) {
-                console.error('QR code download failed, using fallback:', e);
-                window.open(qrImage.src, '_blank');
-                showToast('QR Code opened in new tab. Long press to save.');
-            } finally {
-                btn.textContent = '';
-                const dlIcon = document.createElement('i');
-                dlIcon.className = 'fas fa-download';
-                btn.appendChild(dlIcon);
-                btn.appendChild(document.createTextNode(' Save QR Code'));
-                btn.disabled = false;
-            }
-        }
 
         // ── Amount selector
         function selectAmount(el, amount) {
             document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
             el.classList.add('selected');
             selectedAmount = amount;
-            
-            // Clear custom input when preset is chosen
             const customInput = document.getElementById('custom-amount');
-            if (customInput) {
-                customInput.value = '';
-                customInput.classList.remove('active');
-            }
-            
-            updateQRCode();
+            if (customInput) { customInput.value = ''; customInput.classList.remove('active'); }
+            syncDisplay();
         }
 
         // ── Custom amount handler
@@ -358,50 +246,27 @@
                     if (defaultBtn) defaultBtn.classList.add('selected');
                 }
             }
-            updateQRCode();
+            syncDisplay();
         }
 
-        // ── Copy UPI ID
-        document.getElementById('copy-upi-btn').addEventListener('click', function () {
-            navigator.clipboard.writeText(UPI_ID).then(() => {
-                this.textContent = '';
-                
-                const checkIcon = document.createElement('i');
-                checkIcon.className = 'fas fa-check';
-                this.appendChild(checkIcon);
-                this.appendChild(document.createTextNode(' Copied!'));
-                
-                this.classList.add('copied');
-                showToast('✅ UPI ID copied to clipboard!');
-                
-                setTimeout(() => {
-                    this.textContent = '';
-                    
-                    const copyIcon = document.createElement('i');
-                    copyIcon.className = 'fas fa-copy';
-                    this.appendChild(copyIcon);
-                    this.appendChild(document.createTextNode(' Copy ID'));
-                    
-                    this.classList.remove('copied');
-                }, 2000);
-            }).catch(() => {
-                showToast('Please copy manually: ' + UPI_ID);
-            });
-        });
+        // ── Sync the "You are paying" display
+        function syncDisplay() {
+            const el = document.getElementById('rzp-amount-display');
+            if (el) el.textContent = '₹' + selectedAmount.toLocaleString('en-IN');
+        }
 
-        // ── Toast
+        // ── Toast notification
         function showToast(msg) {
             const t = document.getElementById('toast');
-            if (t) {
-                t.textContent = msg;
-                t.classList.add('show');
-                setTimeout(() => t.classList.remove('show'), 3000);
-            }
+            if (!t) return;
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
         }
 
-        // ── Scroll progress
-        const bar = document.getElementById('progress-bar');
-        const nav = document.querySelector('.site-nav');
+        // ── Scroll progress bar + nav shadow + back-to-top
+        const bar    = document.getElementById('progress-bar');
+        const nav    = document.querySelector('.site-nav');
         const topBtn = document.getElementById('top-btn');
 
         window.addEventListener('scroll', () => {
@@ -415,101 +280,57 @@
         topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
         // ── Scroll reveal
-        const observer = new IntersectionObserver((entries) => {
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    observer.unobserve(e.target);
-                }
+                if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
             });
         }, { threshold: 0.08 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // ── Initial QR Code setup
-        updateQRCode();
-
-        // ── Update Razorpay amount display whenever amount changes
-        function syncRazorpayDisplay() {
-            const display = document.getElementById('rzp-amount-display');
-            if (display) {
-                display.textContent = '₹' + selectedAmount.toLocaleString('en-IN');
-            }
-        }
-
-        // Patch selectAmount & handleCustomAmount to also update the Razorpay display
-        const _origSelectAmount = selectAmount;
-        selectAmount = function(el, amount) {
-            _origSelectAmount(el, amount);
-            syncRazorpayDisplay();
-        };
-
-        const _origHandleCustom = handleCustomAmount;
-        handleCustomAmount = function(input) {
-            _origHandleCustom(input);
-            syncRazorpayDisplay();
-        };
-
-        // Initial sync
-        syncRazorpayDisplay();
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
         // ── Razorpay Checkout
         async function startRazorpayPayment() {
             const btn = document.getElementById('rzp-pay-btn');
-            const statusEl = document.getElementById('rzp-status');
 
             if (!selectedAmount || selectedAmount < 1) {
                 setStatus('⚠️ Please select or enter a valid amount first.', 'warn');
                 return;
             }
 
-            // Disable button & show loading
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Order...';
             setStatus('', '');
 
             try {
-                // STEP 1: Create order on backend
+                // STEP 1: Create order (server-side via Netlify Function)
                 const orderRes = await fetch('/.netlify/functions/create-order', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ amount: selectedAmount }),
                 });
-
                 const orderData = await orderRes.json();
-
-                if (!orderRes.ok) {
-                    throw new Error(orderData.error || 'Failed to create payment order.');
-                }
+                if (!orderRes.ok) throw new Error(orderData.error || 'Failed to create payment order.');
 
                 // STEP 2: Open Razorpay modal
                 const options = {
-                    key: 'rzp_test_TD37v82a8qnpAF', // KEY_ID only — safe for frontend
+                    key: 'rzp_test_TD37v82a8qnpAF', // Public Key ID — safe for frontend
                     amount: orderData.amount,
                     currency: orderData.currency,
                     order_id: orderData.order_id,
                     name: 'Om Pradip Patil',
-                    description: 'Supporting Om\'s open-source work ☕',
-                    image: 'https://ompradippatil.netlify.app/favicon.ico',
+                    description: "Supporting Om's open-source work ☕",
                     theme: { color: '#0f766e' },
-                    prefill: {
-                        name: '',
-                        email: '',
-                        contact: '',
-                    },
+                    prefill: { name: '', email: '', contact: '' },
                     modal: {
-                        // User cancelled the payment modal
-                        ondismiss: function() {
+                        ondismiss: function () {
                             btn.disabled = false;
                             btn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely with Razorpay';
                             setStatus('⚠️ Payment cancelled. You can try again anytime.', 'warn');
                         },
                     },
-                    handler: async function(response) {
-                        // STEP 3: Verify payment signature on backend
+                    handler: async function (response) {
+                        // STEP 3: Verify payment signature (server-side)
                         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying Payment...';
                         setStatus('', '');
-
                         try {
                             const verifyRes = await fetch('/.netlify/functions/verify-payment', {
                                 method: 'POST',
@@ -520,12 +341,10 @@
                                     razorpay_signature:  response.razorpay_signature,
                                 }),
                             });
-
                             const verifyData = await verifyRes.json();
-
                             if (verifyRes.ok && verifyData.success) {
-                                setStatus('🎉 Payment successful! Thank you so much, ' + PAYEE_NAME.split(' ')[0] + ' appreciates your support! ❤️', 'success');
-                                showToast('🎉 Payment of ₹' + selectedAmount + ' successful!');
+                                setStatus('🎉 Payment successful! Thank you so much — your support means everything! ❤️', 'success');
+                                showToast('🎉 Payment of ₹' + selectedAmount + ' received — thank you!');
                                 btn.innerHTML = '✅ Payment Complete!';
                                 btn.style.background = 'linear-gradient(135deg, #16a34a, #15803d)';
                             } else {
@@ -541,18 +360,15 @@
 
                 const rzp = new Razorpay(options);
 
-                // Handle payment failure inside the modal
-                rzp.on('payment.failed', function(response) {
+                rzp.on('payment.failed', function (response) {
                     const errMsg = response.error.description || 'Payment failed. Please try a different method.';
                     setStatus('❌ ' + errMsg, 'error');
                     btn.disabled = false;
                     btn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely with Razorpay';
                 });
 
-                // Reset button before opening modal (ondismiss handles the rest)
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely with Razorpay';
-
                 rzp.open();
 
             } catch (err) {
@@ -562,7 +378,7 @@
             }
         }
 
-        // Helper to update the status message
+        // ── Status message helper
         function setStatus(msg, type) {
             const el = document.getElementById('rzp-status');
             if (!el) return;
@@ -572,6 +388,9 @@
                            : type === 'warn'    ? '#d97706'
                            : 'var(--muted)';
         }
+
+        // Initial amount display sync
+        syncDisplay();
     </script>
 
 </body>

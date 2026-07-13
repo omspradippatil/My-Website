@@ -301,7 +301,13 @@
             setStatus('', '');
 
             try {
-                // STEP 1: Create order (server-side via Netlify Function)
+                // STEP 1: Fetch public Key ID from server (reads RAZORPAY_KEY_ID env var)
+                const configRes = await fetch('/.netlify/functions/get-config');
+                const configData = await configRes.json();
+                if (!configRes.ok || !configData.key_id) throw new Error('Payment configuration unavailable.');
+                const razorpayKeyId = configData.key_id;
+
+                // STEP 2: Create order (server-side via Netlify Function)
                 const orderRes = await fetch('/.netlify/functions/create-order', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -310,9 +316,9 @@
                 const orderData = await orderRes.json();
                 if (!orderRes.ok) throw new Error(orderData.error || 'Failed to create payment order.');
 
-                // STEP 2: Open Razorpay modal
+                // STEP 3: Open Razorpay modal using key from env
                 const options = {
-                    key: 'rzp_test_TD37v82a8qnpAF', // Public Key ID — safe for frontend
+                    key: razorpayKeyId, // Fetched from server — no hardcoding
                     amount: orderData.amount,
                     currency: orderData.currency,
                     order_id: orderData.order_id,

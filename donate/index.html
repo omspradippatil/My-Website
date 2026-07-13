@@ -13,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <!-- Razorpay Checkout SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body id="top">
 
@@ -144,6 +146,61 @@
                 <p>
                     <strong>100% Secure & Direct.</strong> Payments go directly to my UPI ID — no middleman, no platform fees. Just scan the QR code or copy the UPI ID to pay.
                 </p>
+            </div>
+        </div>
+
+        <!-- ── Razorpay Card Payment ───────────────────── -->
+        <div class="upi-card reveal" id="razorpay-section" style="margin-top: 0;">
+            <h2><i class="fas fa-credit-card" style="color:var(--teal);font-size:1.2rem;"></i> Pay via Card / NetBanking / UPI Apps</h2>
+            <p style="color:var(--muted); margin-bottom: 20px; font-size: 0.95rem;">
+                Powered by <strong>Razorpay</strong> — supports all Credit/Debit cards, NetBanking, UPI apps, and Wallets. 100% secure checkout.
+            </p>
+
+            <!-- Amount display -->
+            <div style="display:flex; align-items:center; justify-content:space-between; background:var(--paper); border-radius:12px; padding:14px 18px; margin-bottom: 18px; border: 1px solid rgba(17,24,39,.08);">
+                <span style="color:var(--muted); font-size:0.9rem;">You are paying:</span>
+                <span id="rzp-amount-display" style="font-size:1.4rem; font-weight:700; color:var(--teal-dark);">₹199</span>
+            </div>
+
+            <!-- Pay button -->
+            <button
+                id="rzp-pay-btn"
+                onclick="startRazorpayPayment()"
+                style="
+                    width: 100%;
+                    padding: 16px 24px;
+                    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+                    color: #fff;
+                    border: none;
+                    border-radius: 999px;
+                    font-size: 1.05rem;
+                    font-weight: 700;
+                    font-family: inherit;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    transition: transform .2s ease, box-shadow .2s ease;
+                    box-shadow: 0 8px 24px rgba(15,118,110,.35);
+                    letter-spacing: .02em;
+                "
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 28px rgba(15,118,110,.45)';"
+                onmouseout="this.style.transform=''; this.style.boxShadow='0 8px 24px rgba(15,118,110,.35)';">
+                <i class="fas fa-lock"></i> Pay Securely with Razorpay
+            </button>
+
+            <!-- Status message -->
+            <div id="rzp-status" style="margin-top:16px; text-align:center; font-size:0.92rem; min-height:24px;"></div>
+
+            <!-- Accepted payment methods icons -->
+            <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:18px; flex-wrap:wrap;">
+                <span style="color:var(--muted); font-size:0.78rem; text-transform:uppercase; letter-spacing:.08em;">Accepted:</span>
+                <span style="background:#f7f2ea; border:1px solid rgba(17,24,39,.1); border-radius:6px; padding:4px 10px; font-size:0.8rem; font-weight:600; color:var(--stone);">Visa</span>
+                <span style="background:#f7f2ea; border:1px solid rgba(17,24,39,.1); border-radius:6px; padding:4px 10px; font-size:0.8rem; font-weight:600; color:var(--stone);">Mastercard</span>
+                <span style="background:#f7f2ea; border:1px solid rgba(17,24,39,.1); border-radius:6px; padding:4px 10px; font-size:0.8rem; font-weight:600; color:var(--stone);">UPI</span>
+                <span style="background:#f7f2ea; border:1px solid rgba(17,24,39,.1); border-radius:6px; padding:4px 10px; font-size:0.8rem; font-weight:600; color:var(--stone);">NetBanking</span>
+                <span style="background:#f7f2ea; border:1px solid rgba(17,24,39,.1); border-radius:6px; padding:4px 10px; font-size:0.8rem; font-weight:600; color:var(--stone);">Wallets</span>
             </div>
         </div>
 
@@ -370,6 +427,150 @@
 
         // ── Initial QR Code setup
         updateQRCode();
+
+        // ── Update Razorpay amount display whenever amount changes
+        function syncRazorpayDisplay() {
+            const display = document.getElementById('rzp-amount-display');
+            if (display) {
+                display.textContent = '₹' + selectedAmount.toLocaleString('en-IN');
+            }
+        }
+
+        // Patch selectAmount & handleCustomAmount to also update the Razorpay display
+        const _origSelectAmount = selectAmount;
+        selectAmount = function(el, amount) {
+            _origSelectAmount(el, amount);
+            syncRazorpayDisplay();
+        };
+
+        const _origHandleCustom = handleCustomAmount;
+        handleCustomAmount = function(input) {
+            _origHandleCustom(input);
+            syncRazorpayDisplay();
+        };
+
+        // Initial sync
+        syncRazorpayDisplay();
+
+        // ── Razorpay Checkout
+        async function startRazorpayPayment() {
+            const btn = document.getElementById('rzp-pay-btn');
+            const statusEl = document.getElementById('rzp-status');
+
+            if (!selectedAmount || selectedAmount < 1) {
+                setStatus('⚠️ Please select or enter a valid amount first.', 'warn');
+                return;
+            }
+
+            // Disable button & show loading
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Order...';
+            setStatus('', '');
+
+            try {
+                // STEP 1: Create order on backend
+                const orderRes = await fetch('/.netlify/functions/create-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: selectedAmount }),
+                });
+
+                const orderData = await orderRes.json();
+
+                if (!orderRes.ok) {
+                    throw new Error(orderData.error || 'Failed to create payment order.');
+                }
+
+                // STEP 2: Open Razorpay modal
+                const options = {
+                    key: 'rzp_test_TD37v82a8qnpAF', // KEY_ID only — safe for frontend
+                    amount: orderData.amount,
+                    currency: orderData.currency,
+                    order_id: orderData.order_id,
+                    name: 'Om Pradip Patil',
+                    description: 'Supporting Om\'s open-source work ☕',
+                    image: 'https://ompradippatil.netlify.app/favicon.ico',
+                    theme: { color: '#0f766e' },
+                    prefill: {
+                        name: '',
+                        email: '',
+                        contact: '',
+                    },
+                    modal: {
+                        // User cancelled the payment modal
+                        ondismiss: function() {
+                            btn.disabled = false;
+                            btn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely with Razorpay';
+                            setStatus('⚠️ Payment cancelled. You can try again anytime.', 'warn');
+                        },
+                    },
+                    handler: async function(response) {
+                        // STEP 3: Verify payment signature on backend
+                        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying Payment...';
+                        setStatus('', '');
+
+                        try {
+                            const verifyRes = await fetch('/.netlify/functions/verify-payment', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    razorpay_order_id:   response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature:  response.razorpay_signature,
+                                }),
+                            });
+
+                            const verifyData = await verifyRes.json();
+
+                            if (verifyRes.ok && verifyData.success) {
+                                setStatus('🎉 Payment successful! Thank you so much, ' + PAYEE_NAME.split(' ')[0] + ' appreciates your support! ❤️', 'success');
+                                showToast('🎉 Payment of ₹' + selectedAmount + ' successful!');
+                                btn.innerHTML = '✅ Payment Complete!';
+                                btn.style.background = 'linear-gradient(135deg, #16a34a, #15803d)';
+                            } else {
+                                throw new Error(verifyData.error || 'Payment verification failed.');
+                            }
+                        } catch (verifyErr) {
+                            setStatus('❌ ' + verifyErr.message, 'error');
+                            btn.disabled = false;
+                            btn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely with Razorpay';
+                        }
+                    },
+                };
+
+                const rzp = new Razorpay(options);
+
+                // Handle payment failure inside the modal
+                rzp.on('payment.failed', function(response) {
+                    const errMsg = response.error.description || 'Payment failed. Please try a different method.';
+                    setStatus('❌ ' + errMsg, 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely with Razorpay';
+                });
+
+                // Reset button before opening modal (ondismiss handles the rest)
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely with Razorpay';
+
+                rzp.open();
+
+            } catch (err) {
+                setStatus('❌ ' + err.message, 'error');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-lock"></i> Pay Securely with Razorpay';
+            }
+        }
+
+        // Helper to update the status message
+        function setStatus(msg, type) {
+            const el = document.getElementById('rzp-status');
+            if (!el) return;
+            el.textContent = msg;
+            el.style.color = type === 'success' ? '#16a34a'
+                           : type === 'error'   ? '#dc2626'
+                           : type === 'warn'    ? '#d97706'
+                           : 'var(--muted)';
+        }
     </script>
 
 </body>

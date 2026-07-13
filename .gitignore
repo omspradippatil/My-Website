@@ -1,0 +1,10 @@
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.production
+
+# Node.js
+node_modules/
+
+# Netlify
+.netlify/

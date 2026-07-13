@@ -2,5 +2,10 @@
   publish = "."
   functions = "netlify/functions"
 
+  # RAZORPAY_KEY_ID is intentionally public (safe for frontend).
+  # Only RAZORPAY_KEY_SECRET must stay server-side (it never reaches the browser).
+  [build.environment]
+    SECRETS_SCAN_OMIT_KEYS = "RAZORPAY_KEY_ID"
+
 [functions]
   node_bundler = "esbuild"

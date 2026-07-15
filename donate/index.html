@@ -312,7 +312,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, orderBy, limit, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { initializeFirestore, collection, addDoc, query, orderBy, limit, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         let selectedAmount = 199;
         let db;
@@ -386,10 +386,19 @@
         // ── Fetch & Display Top Payers
         async function loadTopPayers() {
             if (!db) return;
+            const listEl = document.getElementById('top-payers-list');
+            
+            // Add a safety timeout in case the connection is completely blocked
+            const timeoutId = setTimeout(() => {
+                if (listEl.innerHTML.includes('Loading top supporters')) {
+                    listEl.innerHTML = '<p style="color:var(--muted); text-align:center; padding: 20px 0;">Please disable your ad blocker to view top supporters.</p>';
+                }
+            }, 8000);
+
             try {
-                const listEl = document.getElementById('top-payers-list');
                 const q = query(collection(db, "donations"), orderBy("amount", "desc"), limit(10));
                 const querySnapshot = await getDocs(q);
+                clearTimeout(timeoutId);
                 
                 if (querySnapshot.empty) {
                     listEl.innerHTML = '<p style="color:var(--muted); text-align:center; padding: 20px 0;">Be the first to support!</p>';
@@ -456,7 +465,8 @@
                 // Initialize Firebase if not already initialized
                 if (!db && configData.firebaseConfig) {
                     const app = initializeApp(configData.firebaseConfig);
-                    db = getFirestore(app);
+                    // Use long polling to bypass strict ad-blockers (Brave/uBlock) that block WebChannels
+                    db = initializeFirestore(app, { experimentalForceLongPolling: true });
                     loadTopPayers(); // Load leaderboard after config is fetched
                 }
 
@@ -585,7 +595,8 @@
             .then(data => {
                 if (data.firebaseConfig) {
                     const app = initializeApp(data.firebaseConfig);
-                    db = getFirestore(app);
+                    // Use long polling to bypass strict ad-blockers (Brave/uBlock) that block WebChannels
+                    db = initializeFirestore(app, { experimentalForceLongPolling: true });
                     loadTopPayers();
                 }
             })

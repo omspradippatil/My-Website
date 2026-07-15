@@ -16,6 +16,76 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Razorpay Checkout SDK -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+        .payer-details {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .payer-details label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--stone);
+            margin-bottom: 4px;
+            display: block;
+        .payer-details input, .payer-details textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid rgba(17,24,39,.1);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: var(--paper);
+            color: var(--stone);
+            transition: all 0.2s;
+        }
+        .payer-details input:focus, .payer-details textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(15,118,110,.1);
+        }
+        
+        .top-payer-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--paper);
+            border: 1px solid rgba(17,24,39,.06);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .top-payer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .top-payer-name {
+            font-weight: 700;
+            color: var(--stone);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .top-payer-message {
+            font-size: 0.85rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+        .top-payer-amount {
+            font-weight: 700;
+            color: var(--teal-dark);
+            font-size: 1.1rem;
+        }
+        .rank-icon {
+            font-size: 1rem;
+        }
+        .rank-1 { color: #fbbf24; } /* Gold */
+        .rank-2 { color: #94a3b8; } /* Silver */
+        .rank-3 { color: #b45309; } /* Bronze */
+    </style>
 </head>
 <body id="top">
 
@@ -115,6 +185,18 @@
                 </div>
             </div>
 
+            <!-- Payer Details -->
+            <div class="payer-details">
+                <div>
+                    <label for="payer-name">Your Name *</label>
+                    <input type="text" id="payer-name" placeholder="John Doe" required>
+                </div>
+                <div>
+                    <label for="payer-message">Message (Optional)</label>
+                    <textarea id="payer-message" placeholder="Leave a short message..." rows="2"></textarea>
+                </div>
+            </div>
+
             <!-- Amount display -->
             <div style="display:flex; align-items:center; justify-content:space-between; background:var(--paper); border-radius:12px; padding:14px 18px; margin: 20px 0 18px; border: 1px solid rgba(17,24,39,.08);">
                 <span style="color:var(--muted); font-size:0.9rem;">You are paying:</span>
@@ -160,6 +242,15 @@
                 <span style="background:#f7f2ea; border:1px solid rgba(17,24,39,.1); border-radius:6px; padding:4px 10px; font-size:0.8rem; font-weight:600; color:var(--stone);">UPI</span>
                 <span style="background:#f7f2ea; border:1px solid rgba(17,24,39,.1); border-radius:6px; padding:4px 10px; font-size:0.8rem; font-weight:600; color:var(--stone);">NetBanking</span>
                 <span style="background:#f7f2ea; border:1px solid rgba(17,24,39,.1); border-radius:6px; padding:4px 10px; font-size:0.8rem; font-weight:600; color:var(--stone);">Wallets</span>
+            </div>
+        </div>
+
+        <!-- Top Payers -->
+        <div class="section-card reveal" id="top-payers-section">
+            <h2><i class="fas fa-trophy" style="color:#fbbf24;font-size:1.2rem;"></i> Top Supporters</h2>
+            <p style="color:var(--muted); font-size: 0.9rem; margin-bottom: 16px;">The amazing people who fuel my late-night coding sessions.</p>
+            <div id="top-payers-list">
+                <p style="color:var(--muted); text-align:center; padding: 20px 0;"><i class="fas fa-spinner fa-spin"></i> Loading top supporters...</p>
             </div>
         </div>
 
@@ -218,11 +309,15 @@
 
     </div><!-- /.page -->
 
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
         let selectedAmount = 199;
+        let db;
 
         // ── Amount selector
-        function selectAmount(el, amount) {
+        window.selectAmount = function(el, amount) {
             document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
             el.classList.add('selected');
             selectedAmount = amount;
@@ -232,7 +327,7 @@
         }
 
         // ── Custom amount handler
-        function handleCustomAmount(input) {
+        window.handleCustomAmount = function(input) {
             const val = parseFloat(input.value);
             if (val && val > 0) {
                 document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
@@ -287,12 +382,62 @@
         }, { threshold: 0.08 });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+        // ── Fetch & Display Top Payers
+        async function loadTopPayers() {
+            if (!db) return;
+            try {
+                const listEl = document.getElementById('top-payers-list');
+                const q = query(collection(db, "donations"), orderBy("amount", "desc"), limit(10));
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    listEl.innerHTML = '<p style="color:var(--muted); text-align:center; padding: 20px 0;">Be the first to support!</p>';
+                    return;
+                }
+
+                listEl.innerHTML = '';
+                let rank = 1;
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    
+                    let rankIcon = '';
+                    if (rank === 1) rankIcon = '<i class="fas fa-medal rank-icon rank-1"></i>';
+                    else if (rank === 2) rankIcon = '<i class="fas fa-medal rank-icon rank-2"></i>';
+                    else if (rank === 3) rankIcon = '<i class="fas fa-medal rank-icon rank-3"></i>';
+                    else rankIcon = `<span style="color:var(--muted); font-size:0.9rem; font-weight:bold; margin-right:4px;">#${rank}</span>`;
+
+                    const item = document.createElement('div');
+                    item.className = 'top-payer-item';
+                    item.innerHTML = `
+                        <div class="top-payer-info">
+                            <span class="top-payer-name">${rankIcon} ${escapeHtml(data.name || 'Anonymous')}</span>
+                            ${data.message ? `<span class="top-payer-message">"${escapeHtml(data.message)}"</span>` : ''}
+                        </div>
+                        <span class="top-payer-amount">₹${data.amount.toLocaleString('en-IN')}</span>
+                    `;
+                    listEl.appendChild(item);
+                    rank++;
+                });
+            } catch (error) {
+                console.error("Error loading top payers:", error);
+                document.getElementById('top-payers-list').innerHTML = '<p style="color:#dc2626; text-align:center; padding: 20px 0;">Failed to load supporters.</p>';
+            }
+        }
+
         // ── Razorpay Checkout
-        async function startRazorpayPayment() {
+        window.startRazorpayPayment = async function() {
             const btn = document.getElementById('rzp-pay-btn');
+            const nameInput = document.getElementById('payer-name').value.trim();
+            const messageInput = document.getElementById('payer-message').value.trim();
 
             if (!selectedAmount || selectedAmount < 1) {
                 setStatus('⚠️ Please select or enter a valid amount first.', 'warn');
+                return;
+            }
+            
+            if (!nameInput) {
+                setStatus('⚠️ Please enter your name.', 'warn');
+                document.getElementById('payer-name').focus();
                 return;
             }
 
@@ -301,11 +446,18 @@
             setStatus('', '');
 
             try {
-                // STEP 1: Fetch public Key ID from server (reads RAZORPAY_KEY_ID env var)
+                // STEP 1: Fetch public Key ID and Firebase config from server
                 const configRes = await fetch('/.netlify/functions/get-config');
                 const configData = await configRes.json();
                 if (!configRes.ok || !configData.key_id) throw new Error('Payment configuration unavailable.');
                 const razorpayKeyId = configData.key_id;
+                
+                // Initialize Firebase if not already initialized
+                if (!db && configData.firebaseConfig) {
+                    const app = initializeApp(configData.firebaseConfig);
+                    db = getFirestore(app);
+                    loadTopPayers(); // Load leaderboard after config is fetched
+                }
 
                 // STEP 2: Create order (server-side via Netlify Function)
                 const orderRes = await fetch('/.netlify/functions/create-order', {
@@ -349,10 +501,28 @@
                             });
                             const verifyData = await verifyRes.json();
                             if (verifyRes.ok && verifyData.success) {
+                                // STEP 4: Save to Firebase
+                                if (db) {
+                                    try {
+                                        await addDoc(collection(db, "donations"), {
+                                            name: nameInput,
+                                            message: messageInput,
+                                            amount: selectedAmount,
+                                            payment_id: response.razorpay_payment_id,
+                                            timestamp: serverTimestamp()
+                                        });
+                                        loadTopPayers(); // Refresh leaderboard
+                                    } catch (e) {
+                                        console.error("Error adding document: ", e);
+                                    }
+                                }
+
                                 setStatus('🎉 Payment successful! Thank you so much — your support means everything! ❤️', 'success');
                                 showToast('🎉 Payment of ₹' + selectedAmount + ' received — thank you!');
                                 btn.innerHTML = '✅ Payment Complete!';
                                 btn.style.background = 'linear-gradient(135deg, #16a34a, #15803d)';
+                                document.getElementById('payer-name').value = '';
+                                document.getElementById('payer-message').value = '';
                             } else {
                                 throw new Error(verifyData.error || 'Payment verification failed.');
                             }
@@ -395,8 +565,30 @@
                            : 'var(--muted)';
         }
 
+        // Helper to escape HTML and prevent XSS
+        function escapeHtml(unsafe) {
+            return (unsafe || '').toString()
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+
         // Initial amount display sync
         syncDisplay();
+        
+        // Fetch config and initialize Firebase on load
+        fetch('/.netlify/functions/get-config')
+            .then(res => res.json())
+            .then(data => {
+                if (data.firebaseConfig) {
+                    const app = initializeApp(data.firebaseConfig);
+                    db = getFirestore(app);
+                    loadTopPayers();
+                }
+            })
+            .catch(err => console.error("Could not initialize Firebase:", err));
     </script>
 
 </body>

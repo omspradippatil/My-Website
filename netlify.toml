@@ -8,7 +8,7 @@
     SECRETS_SCAN_OMIT_KEYS = "RAZORPAY_KEY_ID"
 
 [[redirects]]
-from = "/*"
+from = "https://ompradippatil.netlify.app/*"
 to = "https://om-patil.com/:splat"
 status = 301
 force = true

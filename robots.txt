@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ompradippatil.netlify.app/sitemap.xml
+Sitemap: https://om-patil.com/sitemap.xml

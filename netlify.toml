@@ -7,5 +7,11 @@
   [build.environment]
     SECRETS_SCAN_OMIT_KEYS = "RAZORPAY_KEY_ID"
 
+[[redirects]]
+from = "/*"
+to = "https://om-patil.com/:splat"
+status = 301
+force = true
+
 [functions]
   node_bundler = "esbuild"

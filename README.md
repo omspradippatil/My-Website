@@ -75,7 +75,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ##  Support
 
-If you find my work helpful, consider [supporting me](https://ompradippatil.netlify.app/donate).
+If you find my work helpful, consider [supporting me](https://om-patil.com/donate).
 
 ---
 

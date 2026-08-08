@@ -8,16 +8,34 @@
     SECRETS_SCAN_OMIT_KEYS = "RAZORPAY_KEY_ID"
 
 [[redirects]]
-from = "https://ompradippatil.netlify.app/*"
-to = "https://om-patil.com/:splat"
-status = 301
-force = true
+  from = "http://ompradippatil.netlify.app/*"
+  to = "https://om-patil.com/:splat"
+  status = 301
+  force = true
 
 [[redirects]]
-from = "https://www.om-patil.com/*"
-to = "https://om-patil.com/:splat"
-status = 301
-force = true
+  from = "https://ompradippatil.netlify.app/*"
+  to = "https://om-patil.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.om-patil.com/*"
+  to = "https://om-patil.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.om-patil.com/*"
+  to = "https://om-patil.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://om-patil.com/*"
+  to = "https://om-patil.com/:splat"
+  status = 301
+  force = true
 
 [functions]
   node_bundler = "esbuild"

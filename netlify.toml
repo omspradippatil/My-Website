@@ -13,5 +13,11 @@ to = "https://om-patil.com/:splat"
 status = 301
 force = true
 
+[[redirects]]
+from = "https://www.om-patil.com/*"
+to = "https://om-patil.com/:splat"
+status = 301
+force = true
+
 [functions]
   node_bundler = "esbuild"

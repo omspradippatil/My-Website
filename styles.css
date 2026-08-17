@@ -141,6 +141,7 @@
         .nav-links a:nth-child(4) { animation-delay: .2s; }
         .nav-links a:nth-child(5) { animation-delay: .24s; }
         .nav-links a:nth-child(6) { animation-delay: .28s; }
+        .nav-links a:nth-child(7) { animation-delay: .32s; }
 
         @keyframes navItemIn {
             from {
@@ -255,6 +256,7 @@
         .reveal-delay-3 { transition-delay: .3s; }
         .reveal-delay-4 { transition-delay: .4s; }
         .reveal-delay-5 { transition-delay: .5s; }
+        .reveal-delay-6 { transition-delay: .6s; }
 
         .animate-on-scroll {
             opacity: 0;

@@ -1,18 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-<url>
-<loc>https://om-patil.com/</loc>
-<lastmod>2026-08-17</lastmod>
-<changefreq>weekly</changefreq>
-<priority>1.0</priority>
-</url>
+  <url>
+    <loc>https://om-patil.com/</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://om-patil.com/assets/images/om-patil.jpg</image:loc>
+      <image:title>Om Patil (Om Pradip Patil) - Official Profile</image:title>
+      <image:caption>Official portrait of Om Patil (Om Pradip Patil), full-stack web developer and Flutter mobile app developer from Boisar, Maharashtra, India.</image:caption>
+      <image:geo_location>Boisar, Maharashtra, India</image:geo_location>
+    </image:image>
+    <image:image>
+      <image:loc>https://om-patil.com/assets/images/om-pradip-patil.jpg</image:loc>
+      <image:title>Om Pradip Patil - Traditional Portrait</image:title>
+      <image:caption>Portrait photo of Om Pradip Patil (Om Patil), Computer Engineering student and developer.</image:caption>
+      <image:geo_location>Boisar, Maharashtra, India</image:geo_location>
+    </image:image>
+    <image:image>
+      <image:loc>https://om-patil.com/assets/images/om-patil-developer.jpg</image:loc>
+      <image:title>Om Patil - Full-Stack Developer</image:title>
+      <image:caption>Om Patil (Om Pradip Patil) - Full-Stack &amp; Flutter Developer, creator of SJCEM Navigator and Stub Smart.</image:caption>
+      <image:geo_location>Boisar, Maharashtra, India</image:geo_location>
+    </image:image>
+    <image:image>
+      <image:loc>https://om-patil.com/assets/images/om-pradip-patil-developer.jpg</image:loc>
+      <image:title>Om Pradip Patil - Developer &amp; Researcher</image:title>
+      <image:caption>Om Pradip Patil standing portrait - developer, researcher, and 1st Rank winner at MYRESEARCHGO Conference.</image:caption>
+      <image:geo_location>Boisar, Maharashtra, India</image:geo_location>
+    </image:image>
+    <image:image>
+      <image:loc>https://om-patil.com/assets/images/om-patil-boisar.jpg</image:loc>
+      <image:title>Om Patil - Boisar, Maharashtra</image:title>
+      <image:caption>Om Patil (Om Pradip Patil) from Boisar, Palghar, Maharashtra, India.</image:caption>
+      <image:geo_location>Boisar, Maharashtra, India</image:geo_location>
+    </image:image>
+    <image:image>
+      <image:loc>https://om-patil.com/assets/images/om-patil-portfolio.jpg</image:loc>
+      <image:title>Om Patil - Official Portfolio Picture</image:title>
+      <image:caption>Om Patil portfolio profile photo - software engineering student and developer.</image:caption>
+      <image:geo_location>Boisar, Maharashtra, India</image:geo_location>
+    </image:image>
+    <image:image>
+      <image:loc>https://om-patil.com/assets/images/om-pradip-patil-profile.jpg</image:loc>
+      <image:title>Om Pradip Patil Profile Photo</image:title>
+      <image:caption>Profile photo of Om Pradip Patil (omspradippatil).</image:caption>
+      <image:geo_location>Boisar, Maharashtra, India</image:geo_location>
+    </image:image>
+  </url>
 
-<url>
-<loc>https://om-patil.com/donate/</loc>
-<lastmod>2026-08-17</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>
+  <url>
+    <loc>https://om-patil.com/donate/</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://om-patil.com/assets/images/om-patil.jpg</image:loc>
+      <image:title>Support Om Patil (Om Pradip Patil)</image:title>
+      <image:caption>Support Om Patil - open source developer and student engineer.</image:caption>
+      <image:geo_location>Boisar, Maharashtra, India</image:geo_location>
+    </image:image>
+  </url>
 
 </urlset>

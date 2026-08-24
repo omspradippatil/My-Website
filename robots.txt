@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+User-agent: Googlebot-Image
+Allow: /assets/images/
+Allow: /
+
 Sitemap: https://om-patil.com/sitemap.xml

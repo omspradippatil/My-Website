@@ -1,0 +1,739 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <title>Om Patil (Om Pradip Patil) | Official AMP Portfolio | Full-Stack &amp; Flutter Developer</title>
+    <link rel="canonical" href="https://om-patil.com/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta name="description" content="Official AMP portfolio of Om Patil (Om Pradip Patil) - Computer Engineering student, full-stack developer, and Flutter app developer from Boisar, Maharashtra.">
+    <meta name="keywords" content="Om Patil, Om Pradip Patil, Om Patil Boisar, Full-Stack Developer, Flutter Developer, SJCEM, VCET, Om Patil AMP">
+    <meta name="author" content="Om Pradip Patil">
+
+    <!-- Open Graph & Twitter Cards -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="Om Patil (Om Pradip Patil) | Official AMP Portfolio">
+    <meta property="og:description" content="Official AMP portfolio of Om Patil (Om Pradip Patil) - Computer Engineering student, full-stack developer, and Flutter app developer from Boisar, Maharashtra.">
+    <meta property="og:url" content="https://om-patil.com/amp/">
+    <meta property="og:site_name" content="Om Pradip Patil Portfolio">
+    <meta property="og:image" content="https://om-patil.com/assets/images/om-patil.jpg">
+    <meta property="og:image:width" content="1500">
+    <meta property="og:image:height" content="2000">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Om Patil (Om Pradip Patil) | Official AMP Portfolio">
+    <meta name="twitter:description" content="Official AMP portfolio of Om Patil (Om Pradip Patil) - Full-Stack Developer.">
+    <meta name="twitter:image" content="https://om-patil.com/assets/images/om-patil.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- AMP Boilerplate -->
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    <!-- Custom AMP Styles -->
+    <style amp-custom>
+        :root {
+            --ink: #111827;
+            --muted: #5b6474;
+            --paper: #f7f2ea;
+            --sand: #efe4d4;
+            --copper: #c76b3a;
+            --teal: #0f766e;
+            --teal-light: #14b8a6;
+            --teal-dark: #0b4f4a;
+            --stone: #1f2937;
+            --white: #ffffff;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            --shadow-soft: 0 16px 40px rgba(17,24,39,.08);
+            --shadow-card: 0 8px 20px rgba(17,24,39,.06);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--ink);
+            background: #fbf9f5;
+            line-height: 1.65;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ── Top Bar ── */
+        .amp-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(251,249,245,0.95);
+            border-bottom: 1px solid rgba(17,24,39,0.06);
+            backdrop-filter: blur(8px);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .amp-brand {
+            font-family: "DM Serif Display", serif;
+            font-size: 1.35rem;
+            color: var(--teal-dark);
+            font-weight: bold;
+        }
+
+        .amp-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .amp-nav-btn {
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: var(--sand);
+            color: var(--stone);
+            transition: background 0.2s ease;
+        }
+
+        .amp-nav-btn.primary {
+            background: var(--teal);
+            color: var(--white);
+        }
+
+        /* ── Main Container ── */
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+
+        /* ── Hero Header ── */
+        header {
+            margin-bottom: 36px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            header {
+                grid-template-columns: 1.4fr 1fr;
+            }
+        }
+
+        .hero-intro {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(17,24,39,0.05);
+        }
+
+        .eyebrow {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--copper);
+            margin-bottom: 8px;
+        }
+
+        .headline {
+            font-family: "DM Serif Display", serif;
+            font-size: 2.2rem;
+            color: var(--teal-dark);
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--teal);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background: var(--sand);
+            color: var(--stone);
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, #111827, #1f2937);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 26px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .hero-card h3 {
+            font-family: "DM Serif Display", serif;
+            font-size: 1.25rem;
+            margin-bottom: 14px;
+            color: var(--teal-light);
+        }
+
+        .hero-card ul {
+            list-style: none;
+        }
+
+        .hero-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-card li:last-child {
+            border-bottom: none;
+        }
+
+        /* ── Sections & Cards ── */
+        section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 26px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(17,24,39,0.04);
+        }
+
+        h2 {
+            font-family: "DM Serif Display", serif;
+            font-size: 1.55rem;
+            color: var(--teal-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grid-two {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 640px) {
+            .grid-two {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .info-card {
+            background: var(--paper);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            border: 1px solid rgba(17,24,39,0.05);
+        }
+
+        .info-card strong {
+            display: block;
+            color: var(--stone);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .pill {
+            background: var(--sand);
+            color: var(--stone);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .list {
+            list-style: disc;
+            padding-left: 20px;
+            margin-top: 8px;
+            color: var(--muted);
+        }
+
+        .list li {
+            margin-bottom: 6px;
+        }
+
+        /* ── Social / Platform Links ── */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media (min-width: 640px) {
+            .platform-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .platform-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--paper);
+            padding: 14px 18px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(17,24,39,0.05);
+            transition: background 0.2s ease;
+        }
+
+        .platform-item strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--stone);
+        }
+
+        .platform-item small {
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        /* ── Image Gallery (AMP-valid) ── */
+        .amp-gallery {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 640px) {
+            .amp-gallery {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .gallery-card {
+            background: var(--paper);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(17,24,39,0.06);
+        }
+
+        .gallery-card figcaption {
+            padding: 12px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--teal);
+            font-weight: 600;
+        }
+
+        /* ── Badge & Tag ── */
+        .amp-badge {
+            display: inline-block;
+            background: var(--teal);
+            color: var(--white);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.05em;
+            vertical-align: middle;
+            margin-left: 6px;
+        }
+    </style>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Person",
+                    "@id": "https://om-patil.com/#person",
+                    "name": "Om Pradip Patil",
+                    "givenName": "Om",
+                    "familyName": "Patil",
+                    "additionalName": "Pradip",
+                    "alternateName": ["Om Patil", "Om P Patil", "omspradippatil", "Om Patil Developer", "Om Pradip Patil Boisar"],
+                    "url": "https://om-patil.com/",
+                    "image": [
+                        "https://om-patil.com/assets/images/om-patil.jpg",
+                        "https://om-patil.com/assets/images/om-pradip-patil.jpg",
+                        "https://om-patil.com/assets/images/om-patil-developer.jpg",
+                        "https://om-patil.com/assets/images/om-pradip-patil-developer.jpg",
+                        "https://om-patil.com/assets/images/om-patil-boisar.jpg",
+                        "https://om-patil.com/assets/images/om-patil-portfolio.jpg",
+                        "https://om-patil.com/assets/images/om-pradip-patil-profile.jpg"
+                    ],
+                    "jobTitle": "Bachelor of Engineering Student & Full-Stack Developer",
+                    "description": "Official portfolio website of Om Patil (Om Pradip Patil), student developer focused on full-stack web development and Flutter mobile app development.",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": "Boisar",
+                        "addressRegion": "Maharashtra",
+                        "addressCountry": "IN"
+                    },
+                    "alumniOf": [
+                        {
+                            "@type": "CollegeOrUniversity",
+                            "name": "Vidyavardhini's College of Engineering and Technology",
+                            "sameAs": "https://www.vcet.edu.in/"
+                        },
+                        {
+                            "@type": "CollegeOrUniversity",
+                            "name": "A. St. John College of Engineering & Management"
+                        }
+                    ],
+                    "sameAs": [
+                        "https://github.com/omspradippatil",
+                        "https://in.linkedin.com/in/om-pradip-patil",
+                        "https://www.instagram.com/omspradippatil",
+                        "https://www.researchgate.net/profile/Om-Patil-24",
+                        "https://x.com/omspradippatil"
+                    ]
+                },
+                {
+                    "@type": "ProfilePage",
+                    "@id": "https://om-patil.com/amp/#webpage",
+                    "url": "https://om-patil.com/amp/",
+                    "name": "Om Patil (Om Pradip Patil) | Official AMP Portfolio",
+                    "mainEntity": {
+                        "@id": "https://om-patil.com/#person"
+                    },
+                    "about": {
+                        "@id": "https://om-patil.com/#person"
+                    },
+                    "primaryImageOfPage": {
+                        "@id": "https://om-patil.com/assets/images/om-patil.jpg"
+                    },
+                    "description": "Official AMP developer portfolio of Om Patil (Om Pradip Patil) featuring projects, skills, research, achievements, and contact information."
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": "https://om-patil.com/assets/images/om-patil.jpg",
+                    "url": "https://om-patil.com/assets/images/om-patil.jpg",
+                    "contentUrl": "https://om-patil.com/assets/images/om-patil.jpg",
+                    "name": "Om Patil (Om Pradip Patil) - Official Profile Photo",
+                    "caption": "Om Patil (Om Pradip Patil), Computer Engineering student and full-stack developer from Boisar, Maharashtra, India",
+                    "creditText": "Om Pradip Patil",
+                    "copyrightNotice": "© 2026 Om Pradip Patil. All rights reserved.",
+                    "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+                    "acquireLicensePage": "https://om-patil.com/#contact"
+                }
+            ]
+        }
+    </script>
+</head>
+<body>
+
+    <!-- ── Header Navigation ── -->
+    <nav class="amp-nav">
+        <a class="amp-brand" href="https://om-patil.com/">Om Patil <span class="amp-badge">AMP</span></a>
+        <div class="amp-nav-links">
+            <a class="amp-nav-btn" href="https://om-patil.com/">Standard Version</a>
+            <a class="amp-nav-btn primary" href="https://om-patil.com/donate/">Support</a>
+        </div>
+    </nav>
+
+    <div class="page">
+
+        <!-- ── Hero Header ── -->
+        <header>
+            <div class="hero-intro">
+                <p class="eyebrow">AMP Portfolio • Full-Stack Developer</p>
+                <h1 class="headline">Om Pradip Patil</h1>
+                <p class="tagline">Also known as Om Patil. Computer Engineering student building practical web and mobile app solutions from Boisar, Maharashtra.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#contact">Contact Me</a>
+                    <a class="btn btn-secondary" href="https://om-patil.com/MY%20Resume.pdf" target="_blank" rel="noopener">View CV (PDF)</a>
+                    <a class="btn btn-secondary" href="https://om-patil.com/">Full Portfolio ↗</a>
+                </div>
+            </div>
+            <div class="hero-card">
+                <h3>Quick Highlights</h3>
+                <ul>
+                    <li>⚡ Accelerated Mobile Pages (AMP) Version</li>
+                    <li>🎓 Diploma in Computer Engineering (88.35% Distinction)</li>
+                    <li>💻 B.E. Information Technology (VCET)</li>
+                    <li>📱 Full-Stack Web &amp; Flutter Mobile Developer</li>
+                    <li>🏆 1st Rank at MYRESEARCHGO International Conference</li>
+                </ul>
+            </div>
+        </header>
+
+        <!-- ── About ── -->
+        <section id="about">
+            <h2>Objective</h2>
+            <p>Computer Engineering student focused on building real-world technical solutions. Experienced in full-stack development, Flutter apps, and database systems, with practical deployment experience. Strong problem-solving mindset with interest in AI, system design, and scalable application development.</p>
+        </section>
+
+        <!-- ── Experience ── -->
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="info-card">
+                <strong>Web Development Intern Trainee</strong>
+                <p style="color:var(--copper);margin-bottom:8px;font-size:0.9rem;">CSism Technologies, Virar | Jun 2024 – Jul 2024</p>
+                <ul class="list">
+                    <li>Developed and enhanced responsive websites using HTML, CSS, JavaScript, and PHP.</li>
+                    <li>Built dynamic web pages, interactive user interfaces, and MySQL database integrations.</li>
+                    <li>Optimized website performance, improved UI responsiveness, and resolved cross-browser compatibility issues.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ── Education ── -->
+        <section id="education">
+            <h2>Education</h2>
+            <div class="grid-two">
+                <div class="info-card">
+                    <strong>Aug 2026 – Jun 2029</strong>
+                    <p>Bachelor of Engineering (B.E.) in Information Technology</p>
+                    <p style="color:var(--muted);font-size:0.85rem;">Vidyavardhini's College of Engineering and Technology (University of Mumbai)</p>
+                </div>
+                <div class="info-card">
+                    <strong>Aug 2023 – Jun 2026</strong>
+                    <p>Diploma in Computer Engineering — 88.35%</p>
+                    <p style="color:var(--copper);font-size:0.85rem;">First Class with Distinction</p>
+                    <p style="color:var(--muted);font-size:0.85rem;">A. St. John College of Engineering &amp; Management (MSBTE)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Skills ── -->
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="info-card" style="margin-bottom:14px;">
+                <strong>Programming &amp; Frameworks</strong>
+                <div class="pill-list">
+                    <span class="pill">JavaScript</span>
+                    <span class="pill">Dart</span>
+                    <span class="pill">Flutter</span>
+                    <span class="pill">PHP</span>
+                    <span class="pill">Python</span>
+                    <span class="pill">HTML5 &amp; CSS3</span>
+                    <span class="pill">Node.js</span>
+                    <span class="pill">SQL / MySQL</span>
+                </div>
+            </div>
+            <div class="info-card">
+                <strong>Core Competencies &amp; Tools</strong>
+                <div class="pill-list">
+                    <span class="pill">Full-Stack Development</span>
+                    <span class="pill">REST APIs</span>
+                    <span class="pill">System Design</span>
+                    <span class="pill">Git &amp; GitHub</span>
+                    <span class="pill">Netlify</span>
+                    <span class="pill">AMP &amp; Core Web Vitals</span>
+                    <span class="pill">UI/UX Design</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Featured Projects ── -->
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="grid-two">
+                <div class="info-card">
+                    <strong>SJCEM Navigator</strong>
+                    <p style="color:var(--copper);font-size:0.85rem;margin-bottom:6px;">Sponsored Project</p>
+                    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">Sensor-Fusion Based Indoor Navigation and Academic Management Framework.</p>
+                    <a class="btn btn-secondary" href="https://github.com/omspradippatil/sjcem_navigator" target="_blank" rel="noopener">View on GitHub</a>
+                </div>
+                <div class="info-card">
+                    <strong>Stub Smart</strong>
+                    <p style="color:var(--copper);font-size:0.85rem;margin-bottom:6px;">State Level Environmental Project</p>
+                    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">Environmental awareness project - saving nature filter by filter.</p>
+                    <a class="btn btn-secondary" href="https://www.linkedin.com/posts/om-pradip-patil_won-second-prize-in-district-level-ncsc-and-activity-7156637426268925952-srdv/" target="_blank" rel="noopener">View LinkedIn Post</a>
+                </div>
+                <div class="info-card">
+                    <strong>OM-pdf</strong>
+                    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">A dedicated, lightweight web-based PDF utility tool.</p>
+                    <a class="btn btn-secondary" href="https://om-pdf.pages.dev" target="_blank" rel="noopener">Open Live Tool ↗</a>
+                </div>
+                <div class="info-card">
+                    <strong>OM-TOOLS</strong>
+                    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">A comprehensive suite of developer &amp; daily web tools.</p>
+                    <a class="btn btn-secondary" href="https://om-tools.netlify.app" target="_blank" rel="noopener">Open Live Tool ↗</a>
+                </div>
+                <div class="info-card">
+                    <strong>Amul Shop Website</strong>
+                    <p style="color:var(--copper);font-size:0.85rem;margin-bottom:6px;">Sponsored Project</p>
+                    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">E-commerce web portal for Amul dairy products.</p>
+                    <a class="btn btn-secondary" href="https://github.com/omspradippatil/Amul-Shop" target="_blank" rel="noopener">View Code</a>
+                </div>
+                <div class="info-card">
+                    <strong>Galaxy S23 FE Device Tree</strong>
+                    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">Custom device tree source development for Android kernel/ROMs.</p>
+                    <a class="btn btn-secondary" href="https://github.com/omspradippatil/Galaxy-S23-FE-Device-Tree" target="_blank" rel="noopener">View Code</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Web Performance & AMP Insights ── -->
+        <section id="insights">
+            <h2>Modern Web Performance &amp; Google Search</h2>
+            <div class="info-card">
+                <strong style="color:var(--teal);margin-bottom:8px;">How Google Search Treats AMP &amp; Responsive Web</strong>
+                <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">
+                    Google Search applies the same ranking standards to all pages regardless of technology (AMP or standard HTML5). Modern web standards prioritize <strong>Core Web Vitals</strong> (LCP, INP, CLS) and responsive design. AMP provides instantaneous pre-rendering on mobile networks, while responsive HTML5 offers rich client-side interactivity.
+                </p>
+                <div class="pill-list">
+                    <span class="pill">Core Web Vitals</span>
+                    <span class="pill">Google Search Indexing</span>
+                    <span class="pill">Instant Mobile Caching</span>
+                    <span class="pill">Responsive Architecture</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Photos Gallery (AMP Valid) ── -->
+        <section id="photos">
+            <h2>Official Photos of Om Patil</h2>
+            <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px;">Licensed official portrait photos of Om Patil (Om Pradip Patil), developer from Boisar, Maharashtra.</p>
+            <div class="amp-gallery">
+                <figure class="gallery-card">
+                    <amp-img src="/assets/images/om-patil.jpg" width="600" height="800" layout="responsive" alt="Om Patil (Om Pradip Patil) - Official Profile Photo"></amp-img>
+                    <figcaption>Om Patil (Om Pradip Patil) - Full-Stack Developer</figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <amp-img src="/assets/images/om-pradip-patil.jpg" width="600" height="800" layout="responsive" alt="Om Pradip Patil - Traditional Portrait"></amp-img>
+                    <figcaption>Om Pradip Patil - Traditional Portrait</figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <amp-img src="/assets/images/om-patil-developer.jpg" width="600" height="800" layout="responsive" alt="Om Patil - Developer Portrait"></amp-img>
+                    <figcaption>Om Patil - Formal Developer Portrait</figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <amp-img src="/assets/images/om-pradip-patil-developer.jpg" width="600" height="800" layout="responsive" alt="Om Pradip Patil - Researcher Portrait"></amp-img>
+                    <figcaption>Om Pradip Patil - Award &amp; Researcher Portrait</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ── Contact ── -->
+        <section id="contact">
+            <h2>Contact Information</h2>
+            <div class="grid-two">
+                <div class="info-card">
+                    <strong>Location</strong>
+                    <p style="color:var(--muted);">Boisar, Palghar, Maharashtra, India</p>
+                </div>
+                <div class="info-card">
+                    <strong>WhatsApp (Messaging only)</strong>
+                    <p><a href="https://wa.me/919028915605" style="color:var(--teal);font-weight:600;">+91 9028915605</a></p>
+                </div>
+                <div class="info-card">
+                    <strong>Email</strong>
+                    <p><a href="mailto:omspradippatil@gmail.com" style="color:var(--teal);font-weight:600;">omspradippatil@gmail.com</a></p>
+                </div>
+                <div class="info-card">
+                    <strong>Canonical Website</strong>
+                    <p><a href="https://om-patil.com/" style="color:var(--copper);font-weight:600;">om-patil.com ↗</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Social Links ── -->
+        <section id="links">
+            <h2>Social &amp; Professional Links</h2>
+            <div class="platform-grid">
+                <a class="platform-item" href="https://github.com/omspradippatil" target="_blank" rel="noopener">
+                    <div>
+                        <strong>GitHub</strong>
+                        <small>@omspradippatil — Code &amp; Repositories</small>
+                    </div>
+                </a>
+                <a class="platform-item" href="https://in.linkedin.com/in/om-pradip-patil" target="_blank" rel="noopener">
+                    <div>
+                        <strong>LinkedIn</strong>
+                        <small>Om Pradip Patil — Professional Profile</small>
+                    </div>
+                </a>
+                <a class="platform-item" href="https://x.com/omspradippatil" target="_blank" rel="noopener">
+                    <div>
+                        <strong>X (Twitter)</strong>
+                        <small>@omspradippatil — Tech Updates</small>
+                    </div>
+                </a>
+                <a class="platform-item" href="https://www.instagram.com/omspradippatil?igsh=MTVzYjhyNXdwd29hMw==" target="_blank" rel="noopener">
+                    <div>
+                        <strong>Instagram</strong>
+                        <small>@omspradippatil — Visual Highlights</small>
+                    </div>
+                </a>
+                <a class="platform-item" href="https://www.researchgate.net/profile/Om-Patil-24" target="_blank" rel="noopener">
+                    <div>
+                        <strong>ResearchGate</strong>
+                        <small>Publications &amp; Research</small>
+                    </div>
+                </a>
+                <a class="platform-item" href="https://om-patil.com/donate/">
+                    <div>
+                        <strong>Support My Work</strong>
+                        <small>Sponsor open-source projects &amp; tools</small>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- ── Footer ── -->
+        <footer>
+            <p>© 2026 Om Pradip Patil. All rights reserved.</p>
+            <p style="margin-top:6px;">
+                <a href="https://om-patil.com/">Desktop / Canonical Version</a> • 
+                <a href="https://om-patil.com/donate/">Support</a> • 
+                <a href="https://om-patil.com/#contact">Contact</a>
+            </p>
+        </footer>
+
+    </div><!-- /.page -->
+
+</body>
+</html>

@@ -72,6 +72,19 @@
             text-decoration: none;
         }
 
+        /* ── Visually Hidden (Accessible SEO / Off-Screen) ── */
+        .visually-hidden {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+
         /* ── Top Bar ── */
         .amp-nav {
             position: sticky;
@@ -335,32 +348,6 @@
             font-size: 0.8rem;
         }
 
-        /* ── Image Gallery (AMP-valid) ── */
-        .amp-gallery {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        @media (min-width: 640px) {
-            .amp-gallery {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .gallery-card {
-            background: var(--paper);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            border: 1px solid rgba(17,24,39,0.06);
-        }
-
-        .gallery-card figcaption {
-            padding: 12px;
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
-
         /* ── Footer ── */
         footer {
             text-align: center;
@@ -465,7 +452,86 @@
                     "creditText": "Om Pradip Patil",
                     "copyrightNotice": "© 2026 Om Pradip Patil. All rights reserved.",
                     "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
-                    "acquireLicensePage": "https://om-patil.com/#contact"
+                    "acquireLicensePage": "https://om-patil.com/#contact",
+                    "keywords": ["Om Patil", "Om Pradip Patil", "Om Patil Developer", "Om Patil Boisar"]
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": "https://om-patil.com/assets/images/om-pradip-patil.jpg",
+                    "url": "https://om-patil.com/assets/images/om-pradip-patil.jpg",
+                    "contentUrl": "https://om-patil.com/assets/images/om-pradip-patil.jpg",
+                    "name": "Om Pradip Patil - Traditional Portrait",
+                    "caption": "Portrait photo of Om Pradip Patil (Om Patil), engineer and developer from Boisar",
+                    "creditText": "Om Pradip Patil",
+                    "copyrightNotice": "© 2026 Om Pradip Patil. All rights reserved.",
+                    "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+                    "acquireLicensePage": "https://om-patil.com/#contact",
+                    "keywords": ["Om Pradip Patil", "Om Patil", "Om Pradip Patil Boisar"]
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": "https://om-patil.com/assets/images/om-patil-developer.jpg",
+                    "url": "https://om-patil.com/assets/images/om-patil-developer.jpg",
+                    "contentUrl": "https://om-patil.com/assets/images/om-patil-developer.jpg",
+                    "name": "Om Patil - Full-Stack Developer",
+                    "caption": "Om Patil - Full-Stack and Flutter App Developer",
+                    "creditText": "Om Pradip Patil",
+                    "copyrightNotice": "© 2026 Om Pradip Patil. All rights reserved.",
+                    "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+                    "acquireLicensePage": "https://om-patil.com/#contact",
+                    "keywords": ["Om Patil", "Om Patil Developer", "Om Pradip Patil"]
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": "https://om-patil.com/assets/images/om-pradip-patil-developer.jpg",
+                    "url": "https://om-patil.com/assets/images/om-pradip-patil-developer.jpg",
+                    "contentUrl": "https://om-patil.com/assets/images/om-pradip-patil-developer.jpg",
+                    "name": "Om Pradip Patil - Developer & Researcher",
+                    "caption": "Om Pradip Patil - Researcher, developer, and author of SJCEM Navigator",
+                    "creditText": "Om Pradip Patil",
+                    "copyrightNotice": "© 2026 Om Pradip Patil. All rights reserved.",
+                    "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+                    "acquireLicensePage": "https://om-patil.com/#contact",
+                    "keywords": ["Om Pradip Patil", "Om Patil Developer", "Om Patil Boisar"]
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": "https://om-patil.com/assets/images/om-patil-boisar.jpg",
+                    "url": "https://om-patil.com/assets/images/om-patil-boisar.jpg",
+                    "contentUrl": "https://om-patil.com/assets/images/om-patil-boisar.jpg",
+                    "name": "Om Patil - Developer from Boisar",
+                    "caption": "Om Patil (Om Pradip Patil) from Boisar, Palghar, Maharashtra",
+                    "creditText": "Om Pradip Patil",
+                    "copyrightNotice": "© 2026 Om Pradip Patil. All rights reserved.",
+                    "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+                    "acquireLicensePage": "https://om-patil.com/#contact",
+                    "keywords": ["Om Patil", "Om Patil Boisar", "Om Pradip Patil"]
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": "https://om-patil.com/assets/images/om-patil-portfolio.jpg",
+                    "url": "https://om-patil.com/assets/images/om-patil-portfolio.jpg",
+                    "contentUrl": "https://om-patil.com/assets/images/om-patil-portfolio.jpg",
+                    "name": "Om Patil - Official Portfolio Photo",
+                    "caption": "Om Patil - Portfolio profile picture",
+                    "creditText": "Om Pradip Patil",
+                    "copyrightNotice": "© 2026 Om Pradip Patil. All rights reserved.",
+                    "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+                    "acquireLicensePage": "https://om-patil.com/#contact",
+                    "keywords": ["Om Patil", "Om Patil Portfolio", "Om Pradip Patil"]
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": "https://om-patil.com/assets/images/om-pradip-patil-profile.jpg",
+                    "url": "https://om-patil.com/assets/images/om-pradip-patil-profile.jpg",
+                    "contentUrl": "https://om-patil.com/assets/images/om-pradip-patil-profile.jpg",
+                    "name": "Om Pradip Patil - Profile Photo",
+                    "caption": "Om Pradip Patil (omspradippatil) profile picture",
+                    "creditText": "Om Pradip Patil",
+                    "copyrightNotice": "© 2026 Om Pradip Patil. All rights reserved.",
+                    "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+                    "acquireLicensePage": "https://om-patil.com/#contact",
+                    "keywords": ["Om Pradip Patil", "Om Patil", "omspradippatil"]
                 }
             ]
         }
@@ -633,30 +699,6 @@
             </div>
         </section>
 
-        <!-- ── Photos Gallery (AMP Valid) ── -->
-        <section id="photos">
-            <h2>Official Photos of Om Patil</h2>
-            <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px;">Licensed official portrait photos of Om Patil (Om Pradip Patil), developer from Boisar, Maharashtra.</p>
-            <div class="amp-gallery">
-                <figure class="gallery-card">
-                    <amp-img src="/assets/images/om-patil.jpg" width="600" height="800" layout="responsive" alt="Om Patil (Om Pradip Patil) - Official Profile Photo"></amp-img>
-                    <figcaption>Om Patil (Om Pradip Patil) - Full-Stack Developer</figcaption>
-                </figure>
-                <figure class="gallery-card">
-                    <amp-img src="/assets/images/om-pradip-patil.jpg" width="600" height="800" layout="responsive" alt="Om Pradip Patil - Traditional Portrait"></amp-img>
-                    <figcaption>Om Pradip Patil - Traditional Portrait</figcaption>
-                </figure>
-                <figure class="gallery-card">
-                    <amp-img src="/assets/images/om-patil-developer.jpg" width="600" height="800" layout="responsive" alt="Om Patil - Developer Portrait"></amp-img>
-                    <figcaption>Om Patil - Formal Developer Portrait</figcaption>
-                </figure>
-                <figure class="gallery-card">
-                    <amp-img src="/assets/images/om-pradip-patil-developer.jpg" width="600" height="800" layout="responsive" alt="Om Pradip Patil - Researcher Portrait"></amp-img>
-                    <figcaption>Om Pradip Patil - Award &amp; Researcher Portrait</figcaption>
-                </figure>
-            </div>
-        </section>
-
         <!-- ── Contact ── -->
         <section id="contact">
             <h2>Contact Information</h2>
@@ -721,6 +763,39 @@
                     </div>
                 </a>
             </div>
+        </section>
+
+        <!-- ── Visually-Hidden SEO Photo Gallery (Indexed by Google Images, hidden from AMP UI) ── -->
+        <section class="visually-hidden" aria-hidden="true" aria-label="Photo Gallery for Search Indexing">
+            <h2>Photos of Om Patil (Om Pradip Patil)</h2>
+            <figure>
+                <amp-img src="/assets/images/om-patil.jpg" width="1500" height="2000" layout="responsive" alt="Om Patil (Om Pradip Patil) - Official Profile Photo"></amp-img>
+                <figcaption>Official portrait of Om Patil (Om Pradip Patil), Computer Engineering student and full-stack developer from Boisar, Maharashtra, India.</figcaption>
+            </figure>
+            <figure>
+                <amp-img src="/assets/images/om-pradip-patil.jpg" width="1500" height="2000" layout="responsive" alt="Om Pradip Patil (Om Patil) - Traditional Portrait in Kurta"></amp-img>
+                <figcaption>Om Pradip Patil - Developer and engineer from Boisar, Palghar.</figcaption>
+            </figure>
+            <figure>
+                <amp-img src="/assets/images/om-patil-developer.jpg" width="1500" height="2000" layout="responsive" alt="Om Patil - Full-Stack and Flutter Developer"></amp-img>
+                <figcaption>Om Patil (Om Pradip Patil) - Full-Stack Web &amp; Flutter App Developer, creator of SJCEM Navigator and Stub Smart.</figcaption>
+            </figure>
+            <figure>
+                <amp-img src="/assets/images/om-pradip-patil-developer.jpg" width="1500" height="2000" layout="responsive" alt="Om Pradip Patil - Software Developer and Researcher"></amp-img>
+                <figcaption>Om Pradip Patil - Researcher, developer, and 1st Rank winner at MYRESEARCHGO International Conference.</figcaption>
+            </figure>
+            <figure>
+                <amp-img src="/assets/images/om-patil-boisar.jpg" width="1500" height="2000" layout="responsive" alt="Om Patil - Computer Engineering Student Boisar"></amp-img>
+                <figcaption>Om Patil (Om Pradip Patil) from Boisar, Palghar, Maharashtra, India.</figcaption>
+            </figure>
+            <figure>
+                <amp-img src="/assets/images/om-patil-portfolio.jpg" width="1500" height="2000" layout="responsive" alt="Om Patil - Official Portfolio Photo"></amp-img>
+                <figcaption>Om Patil portfolio picture - full stack web and app developer.</figcaption>
+            </figure>
+            <figure>
+                <amp-img src="/assets/images/om-pradip-patil-profile.jpg" width="1500" height="2000" layout="responsive" alt="Om Pradip Patil - Developer Profile Photo"></amp-img>
+                <figcaption>Profile photo of Om Pradip Patil (omspradippatil).</figcaption>
+            </figure>
         </section>
 
         <!-- ── Footer ── -->

@@ -26,12 +26,6 @@
   force = true
 
 [[redirects]]
-  from = "/amp/index.html"
-  to = "https://om-patil.com/amp/"
-  status = 301
-  force = true
-
-[[redirects]]
   from = "http://ompradippatil.netlify.app/*"
   to = "https://om-patil.com/:splat"
   status = 301
@@ -63,3 +57,9 @@
 
 [functions]
   node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/amp/*"
+  to = "https://om-patil.com/"
+  status = 301
+  force = true
